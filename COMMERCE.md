@@ -16,12 +16,22 @@ Tabrikchiga rol: opangiz avval oddiy foydalanuvchi sifatida ro‘yxatdan o‘tad
 
 Hamyon ishga tushirish
 
-1. MONGODB_URI va xavfsiz JWT_SECRET saqlansin. Admin bootstrap avvalgi tartibda.
-2. Serverning .env.example faylidagi HAMYON_SHOP_ID, HAMYON_SHOP_KEY va HAMYON_API_URL (kirimlar ro‘yxati) sozlanadi. HAMYON_CREATE_URL yoki HTTPS HAMYON_CHECKOUT_URL ham kerak.
-3. Create so‘rovi mavjud Gift Factory adapteridek {shop_id, shop_key, amount, order_id} yuboradi. Checkout HTTPS payment_url, checkout_url yoki data.payment_url orqali olinadi; aks holda HAMYON_CHECKOUT_URL shabloni ishlatiladi.
-4. Kirimlar javobida tranzaksiya ID, aniq UZS summa, yo‘nalish va vaqt bo‘lishi shart. Pul birligi provayderda UZS ekanini stagingda tekshiring. Bank/merchant provayderi haqiqiy javobi bilan end-to-end tekshiruv o‘tkazilmaguncha haqiqiy to‘lovni tayyor deb hisoblamang.
-5. Har bir 5 daqiqalik hisobga 1–999 so‘m ajratuvchi qism qo‘shiladi; mijozga umumiy aniq summa oldindan ko‘rsatiladi. Bu Gift Factory’dagi ajratish tartibi. Bir vaqtning o‘zida pending summalar va orderlar unikal MongoDB indekslari bilan himoyalangan; tranzaksiya ID qayta ishlatilmaydi.
-6. Server har 20 soniyada tekshiradi. /api/payments/hamyon/webhook X-Hamyon-Secret orqali faqat tekshiruvni uyg‘otadi; uning body’sidagi paid belgisi hech qachon xaridni ochmaydi. Sir kamida 24 belgi.
-7. Bu sozlamalar bo‘lmasa, buyurtma saqlanadi, to‘lov yopiq holatda tushunarli xabar ko‘rsatadi; soxta muvaffaqiyat berilmaydi. Kalitlar admin yoki brauzerga chiqarilmaydi.
+Rasmiy shartnoma: https://hamyon-api.uz/ (API Docs). Server form-urlencoded POST /payment/create yuboradi: shop_id, shop_key, amount, order_id. Hamyon payment_id, card va 5 daqiqalik muddatni qaytaradi. Mijoz Hamyon ajratgan kartaga aniq summani o‘tkazadi; qo‘lda chek tasdiqlash yo‘q.
 
-Tekshiruv: npm test. commerce.test.mjs real pul yubormaydigan provayder adapteri bilan narx nusxasi, noto‘g‘ri summa, soxta webhook, takroriy to‘lov, yopiq fayllar, minimal rasm talabi va tabrikchi holatlarini tekshiradi. MongoDB indekslari va jonli Hamyon konfiguratsiyasi alohida staging tekshiruvini talab qiladi.
+Serverga HAMYON_SHOP_ID va HAMYON_SHOP_KEY kerak. Bazaviy URL https://hamyon-api.uz; HAMYON_BASE_URL bilan sozlanadi. Keylarni public fayl yoki brauzerga chiqarmang. Ma’lumotlar MongoDB’da saqlanadi.
+
+Hamyon do‘koniga kiritiladigan callbacklar:
+- Prepare: https://tabrikuz-invite.onrender.com/api/hamyon/prepare
+- Complete: https://tabrikuz-invite.onrender.com/api/hamyon/complete
+
+Ikkalasi POST form-urlencoded qabul qiladi. sign = MD5(shop_id + payment_id + amount + shop_key), timing-safe taqqoslanadi. Summa, order_id va payment_id bazadagi hisobga mos bo‘lishi shart. Prepare create javobidan oldin kelishi mumkin; hisob avval bazada yaratiladi va prepare uni order_id bo‘yicha bog‘laydi. Prepare xaridni ochmaydi. Complete imzosida status bo‘lmagani uchun server GET /payment/status?payment_id=... orqali aynan shu shop, order, amount va payment_id uchun haqiqiy statusni qo‘shimcha tekshiradi. paid bir marta ishlanadi, takroriy callback qayta xarid bermaydi. Soxta paid body qabul qilinmaydi.
+
+Har bir hisobga 1–999 so‘mlik ajratuvchi qism qo‘shiladi; aniq summa mijozga ko‘rinadi. MongoDB’da bir vaqtdagi summalar va buyurtmalar unikal. Qayta to‘lov holati tekshiruvi har 20 soniyada va mijoz tugmasida mavjud; kartaga pul tushirish sinovini agent bajarmaydi. Jonli kalitlar va Hamyon do‘konidagi karta xabarnoma sessiyasi alohida tekshiriladi.
+
+Xotiralar va yangi tabrik tajribasi
+
+32 shablon: 12 bepul chizma va 20 rasmli premium variant. /cards/:id sahifasida xariddan oldin rasmlar qo‘shiladi. Bepul uchun 3, premium uchun 12 rasm; admin limitlarni o‘zgartiradi. Ulishishga rozilik shart. Rasmlar shaxsiy GridFS’da saqlanadi; faqat tabrik to‘langan yoki bepul ochiq bo‘lganda uning taxmin qilib bo‘lmaydigan havolasi bilan ko‘rinadi. To‘lanmagan rasm URL’lari 404 qaytaradi. Egasi esa avtorizatsiya bilan oldindan ko‘radi. Xariddan keyin rasm to‘plami o‘zgarmaydi.
+
+Oluvchi: konvert → tilak → xotiralar albomi → yakuniy syurpriz. Har bir bosqich keyingisini ochadi. To‘liq ekran brauzer qo‘llasa faqat ochish tugmasiga bosilganda so‘raladi. Animatsiyani pauza qilish va reduced-motion mavjud.
+
+Tekshiruv: npm test. Test provayderi haqiqiy pul yubormaydi. Egaga tegishlilik, imzo, soxta callback, provider hali pending bo‘lsa paid bermaslik, takroriy callback, narx nusxasi, shaxsiy rasm va ulashish roziligi tekshiriladi.

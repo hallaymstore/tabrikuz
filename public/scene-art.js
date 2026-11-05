@@ -15,6 +15,7 @@ const config={
  blue:{kind:'celebration',image:'aqua-celebration',poster:'aqua-celebration',variant:'celebration'}
 };
 Object.assign(config,{'royal-day':{kind:'celebration',image:'royal-day',poster:'royal-day',variant:'royal'},'moon-garden':{kind:'moongarden',image:'moon-garden',poster:'moon-garden',variant:'moon'},'moon-love':{kind:'moongarden',image:'moon-garden',poster:'moon-garden',variant:'moon'},'royal-wedding':{kind:'wedding',image:'wedding-clean',poster:'wedding-palace',variant:'ivory'}});
+Object.assign(config,{'love-lanterns':{kind:'love',image:'love-lanterns',poster:'love-lanterns',variant:'love'},'love-petals':{kind:'love',image:'love-lanterns',poster:'love-lanterns',variant:'lilac'},'birthday-carnival':{kind:'celebration',image:'birthday-carnival',poster:'birthday-carnival',variant:'carnival'},'birthday-wishes':{kind:'sky',image:'birthday-carnival',poster:'birthday-carnival',variant:'peach'}});
 // Extra animated layers that give each world its own story.
 const I=(n,c)=>window.TabrikIcons?TabrikIcons.svg(n,c):'';
 const many=(n,f)=>Array.from({length:n},(_,i)=>f(i)).join('');
