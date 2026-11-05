@@ -1,0 +1,25 @@
+
+/* Studio v2.1 — responsive containment, no nested scrollbars or clipping */
+html,body{max-width:100%;overflow-x:clip}
+.studio-v2 .workspace-grid,.studio-v2 .workspace-grid>div{min-width:0}
+.studio-v2 .workspace-grid{grid-template-columns:minmax(0,.93fr) minmax(0,1.07fr)}
+.studio-v2 #livePreview{width:100%;max-width:100%;box-sizing:border-box;min-width:0;padding:72px 20px 86px;overflow:hidden!important;display:flex;align-items:center;justify-content:center}
+.studio-v2 #livePreview:not(.stage-fullscreen) .preview-page{flex:0 1 440px;min-width:0;max-width:min(100%,440px);width:100%;box-sizing:border-box;overflow:hidden!important;min-height:550px;padding:32px 28px;transform:none;animation:sceneRise .6s ease both}
+.studio-v2 #livePreview .preview-page{overflow-wrap:anywhere}
+.studio-v2 #livePreview .preview-page h2{font-size:clamp(25px,3vw,39px);line-height:1.15;max-width:100%;word-break:normal}
+.studio-v2 #livePreview .preview-page p{max-width:100%;font-size:clamp(12px,1.25vw,14px);line-height:1.55}
+.studio-v2 #livePreview .preview-page .lottie-art{width:clamp(112px,15vw,170px);height:clamp(112px,15vw,170px);flex-shrink:0}
+.studio-v2 #livePreview .stage-actions{flex-wrap:wrap}
+.studio-v2 .stage-fullscreen{position:fixed!important;inset:0!important;z-index:300!important;margin:0!important;padding:60px 16px 82px!important;width:100vw!important;height:100dvh!important;max-width:none!important;min-height:0!important;overflow:hidden!important;border:0!important;border-radius:0!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:0}
+.studio-v2 .stage-fullscreen .preview-page{box-sizing:border-box;flex:0 1 auto!important;width:min(440px,calc(100vw - 32px),calc((100dvh - 144px)*.78))!important;max-width:100%!important;min-height:0!important;height:auto!important;max-height:calc(100dvh - 144px)!important;overflow:hidden!important;padding:clamp(12px,2vh,26px) clamp(12px,3vw,30px)!important;border-radius:20px;transform:none!important;animation:sceneRise .35s ease both!important;box-shadow:0 9px 0 #d493bd,0 25px 55px #09031fa0!important}
+.studio-v2 .stage-fullscreen .preview-page .lottie-art{height:clamp(70px,17vh,140px)!important;width:clamp(70px,17vh,140px)!important;margin:0 auto!important}
+.studio-v2 .stage-fullscreen .preview-page h2{font-size:clamp(21px,3.1vh,35px)!important;line-height:1.1!important;margin:6px 0 10px!important}
+.studio-v2 .stage-fullscreen .preview-page p{font-size:clamp(11px,1.7vh,14px)!important;line-height:1.4!important;margin:6px 0!important;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.studio-v2 .stage-fullscreen .preview-page .meta{font-size:11px!important;margin:8px 0 4px!important}
+.studio-v2 .stage-fullscreen .preview-page small{font-size:10px!important}
+.studio-v2 .stage-fullscreen .preview-page .label{font-size:9px!important}
+.studio-v2 .stage-fullscreen .stage-actions{position:absolute!important;bottom:14px;left:12px;right:12px;z-index:10}
+.studio-v2 .stage-fullscreen .hud-top{top:12px;left:12px;right:12px}
+.studio-v2 .stage-fullscreen .hud-label{padding:7px 10px;font-size:9px}
+@media(max-width:1100px){.studio-v2 .workspace-grid{grid-template-columns:minmax(0,1fr)}.studio-v2 .workspace-grid>div:last-child{position:static}.studio-v2 #livePreview{min-height:650px}.studio-v2 #livePreview:not(.stage-fullscreen) .preview-page{max-width:420px}}
+@media(max-width:620px){.studio-v2 #livePreview{padding:67px 10px 78px;min-height:600px}.studio-v2 #livePreview:not(.stage-fullscreen) .preview-page{min-height:480px;padding:25px 18px}.studio-v2 #livePreview .preview-page h2{font-size:29px}.studio-v2 .stage-actions button{font-size:11px;padding:11px 12px}.studio-v2 .stage-fullscreen{padding:56px 9px 78px!important}.studio-v2 .stage-fullscreen .preview-page{width:min(calc(100vw - 28px),calc((100dvh - 145px)*.78))!important}.studio-v2 .stage-fullscreen .hud-label:last-child{display:none}}
