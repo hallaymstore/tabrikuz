@@ -272,3 +272,62 @@ def wrap(name, pieces):
 wrap('wrap-vine-01', [(sprig, .62, 18), (white_sprig, .7, 22), (pink_sprig, .66, 16)])
 wrap('wrap-vine-02', [(pink_sprig, .7, 16), (sprig, .6, 20), (bell_tip, .62, 26), (white_sprig, .66, 18)])
 wrap('wrap-vine-03', [(white_sprig, .7, 20), (jasmine, .5, 24), (sprig, .6, 16), (bells, .42, 22)])
+
+
+# ---- Night sky: real moon cut from the midnight scene, night clouds, and
+# glow sprites for fireflies and stars (all transparent WebP).
+from PIL import ImageFilter as _F
+
+scene = np.array(Image.open(ROOT / 'scenes' / 'midnight-palace.webp').convert('RGB')).astype(float)
+cx, cy, R = 931, 157, 50                      # the full moon, top right
+box = 92
+patch = scene[cy - box:cy + box, cx - box:cx + box]
+yy, xx = np.mgrid[-box:box, -box:box]
+d = np.sqrt(xx ** 2 + yy ** 2)
+# Keep the photographed disk; replace its surroundings (leaves, cloud) with
+# a clean halo in the moon's own colour.
+edge = np.clip((R + 1.5 - d) / 3, 0, 1)
+halo = .62 * np.exp(-((d - R) / (R * .55)) ** 2) * (d > R - 2) * np.clip((box - 2 - d) / (box - R), 0, 1) ** 1.5
+alpha = np.maximum(edge, halo)
+halo_rgb = np.array([176, 214, 255])
+# Fill the few dark specks (a leaf tip, a cloud edge) inside the disk.
+disk = d <= R
+lum = patch.mean(axis=2)
+surface = np.median(patch[disk & (lum > 140)], axis=0)
+patch = np.where((disk & (lum < 135))[..., None], surface, patch)
+rgb = np.where((edge > 0)[..., None], np.clip(patch + (255 - patch) * .08, 0, 255), halo_rgb)
+moon = Image.fromarray(np.dstack([rgb, alpha * 255]).astype(np.uint8), 'RGBA')
+moon = moon.crop(moon.getbbox()).resize((240, 240), Image.LANCZOS)
+moon.save(OUT / 'night-moon.webp', 'WEBP', quality=90, method=6)
+print('night-moon.webp', moon.size)
+
+cloud = Image.open(ROOT / 'backgrounds' / 'day-cloud.webp').convert('RGBA')
+cloud = cloud.crop(cloud.getbbox())
+c = np.array(cloud).astype(float)
+night = np.array([62, 92, 170], dtype=float)  # moonlit navy, as in the midnight scene
+lumc = c[:, :, :3].mean(axis=2, keepdims=True) / 255
+c[:, :, :3] = night * (.42 + .7 * lumc) + np.array([50, 60, 80]) * lumc ** 3
+c[:, :, 3] *= .85
+nc = Image.fromarray(np.clip(c, 0, 255).astype(np.uint8), 'RGBA')
+nc.thumbnail((900, 900))
+nc.save(OUT / 'night-cloud.webp', 'WEBP', quality=86, method=6)
+print('night-cloud.webp', nc.size)
+
+
+def glow_sprite(name, size, core, halo, spikes=False):
+    s = size * 4
+    yy, xx = np.mgrid[0:s, 0:s] - s / 2 + .5
+    r = np.sqrt(xx ** 2 + yy ** 2) / (s / 2)
+    a = np.exp(-(r / .12) ** 2) + .55 * np.exp(-(r / .38) ** 2)
+    if spikes:  # four soft rays for a twinkling star
+        a += .5 * np.exp(-(np.abs(xx) / (s * .012)) ** 2) * np.exp(-(r / .9) ** 2)
+        a += .5 * np.exp(-(np.abs(yy) / (s * .012)) ** 2) * np.exp(-(r / .9) ** 2)
+    a = np.clip(a, 0, 1)
+    t = np.clip(np.exp(-(r / .16) ** 2), 0, 1)[..., None]
+    rgb = np.array(halo) * (1 - t) + np.array(core) * t
+    im = Image.fromarray(np.dstack([rgb, a * 255]).astype(np.uint8), 'RGBA').resize((size, size), Image.LANCZOS)
+    im.save(OUT / f'{name}.webp', 'WEBP', quality=90, method=6)
+    print(f'{name}.webp', im.size)
+
+glow_sprite('firefly', 64, (255, 255, 225), (190, 255, 110))
+glow_sprite('night-star', 48, (255, 255, 255), (200, 215, 255), spikes=True)
