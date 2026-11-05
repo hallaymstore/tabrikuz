@@ -88,23 +88,31 @@ body[data-surface] .header-actions .btn-ghost,.landing-experience #app .btn-outl
 .landing-experience #heroTry:hover::before{transform:rotate(4deg)}
 .landing-experience .cta-banner [data-create]:hover::before{transform:scaleX(-1) rotate(-5deg) translateY(-1px)}
 
-/* ---------- Motion: transform/opacity only, and only while on screen ---------- */
-@keyframes flora-nod{from{transform:rotate(-.7deg)}to{transform:rotate(.7deg)}}
-@keyframes flora-corner-breathe{from{transform:rotate(-1.2deg)}to{transform:rotate(1deg) translateY(-1px)}}
-@keyframes flora-lamp-swing{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
-@keyframes flora-lamp-glow{from{opacity:.35}to{opacity:.8}}
-@keyframes flora-glint{0%,72%,100%{opacity:0;transform:scale(.6)}84%{opacity:.95;transform:scale(1.15)}}
+/* ---------- Motion: transform/opacity only, and only while on screen ----------
+   Each layer has its own rhythm so nothing moves in lock-step. */
+@keyframes flora-sway{0%{transform:rotate(-1.6deg) translateY(0)}50%{transform:rotate(.4deg) translateY(-3px)}100%{transform:rotate(1.6deg) translateY(-1px)}}
+@keyframes flora-breathe{from{transform:scale(1)}to{transform:scale(1.018)}}
+@keyframes flora-nod{0%{transform:rotate(-1.2deg) translateY(0)}100%{transform:rotate(1.2deg) translateY(2px)}}
+@keyframes flora-corner-breathe{0%{transform:rotate(-2deg) scale(1)}50%{transform:rotate(.5deg) scale(1.025)}100%{transform:rotate(2deg) scale(1.01)}}
+@keyframes flora-lamp-swing{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+@keyframes flora-lamp-glow{from{opacity:.3}to{opacity:.9}}
+@keyframes flora-glint{0%,62%,100%{opacity:0;transform:scale(.5)}78%{opacity:1;transform:scale(1.3)}}
+@keyframes flora-sprig{from{rotate:-4deg}to{rotate:5deg}}
 @media (prefers-reduced-motion:no-preference){
- .flora-navbar-art{animation:flora-nod 9s ease-in-out infinite alternate}
- .flora-live .flora-sway{animation:flora-nod 10s ease-in-out infinite alternate}
- .flora-live.flora-divider--03 .flora-sway{animation-duration:12s;animation-delay:-4s}
+ .flora-navbar-art{animation:flora-nod 5.5s ease-in-out infinite alternate}
+ .flora-live .flora-sway{animation:flora-sway 7s ease-in-out infinite alternate}
+ .flora-live.flora-divider--03 .flora-sway{animation-duration:8.5s;animation-delay:-3s}
+ .flora-live.flora-divider--01 .flora-divider-art,.flora-live.flora-divider--03 .flora-divider-art{transform-origin:50% 40%;animation:flora-breathe 4.8s ease-in-out infinite alternate}
  .flora-live .flora-lamp{animation:flora-lamp-swing var(--t) ease-in-out var(--d) infinite alternate}
- .flora-live .flora-lamp-glow{animation:flora-lamp-glow 3.4s ease-in-out var(--d) infinite alternate}
- .flora-live .flora-glint{animation:flora-glint 5.5s ease-in-out var(--d) infinite}
- .flora-live.flora-corner{animation:flora-corner-breathe 8s ease-in-out infinite alternate}
- .flora-live.flora-corner--top-right,.flora-live.flora-corner--bottom-left{animation-delay:-3.5s;animation-duration:9.5s}
+ .flora-live .flora-lamp-glow{animation:flora-lamp-glow 2.6s ease-in-out var(--d) infinite alternate}
+ .flora-live .flora-glint{animation:flora-glint 4s ease-in-out var(--d) infinite}
+ .flora-live.flora-corner{animation:flora-corner-breathe 6s ease-in-out infinite alternate}
+ .flora-live.flora-corner--top-right,.flora-live.flora-corner--bottom-left{animation-delay:-2.5s;animation-duration:7.2s}
+ .landing-experience #heroCreate::before,.landing-experience #heroTry::before,.landing-experience .cta-banner [data-create]::before,.landing-experience .template-grid [data-template]::before{animation:flora-sprig 4.2s ease-in-out infinite alternate}
+ .landing-experience #heroTry::before{animation-delay:-1.4s}
+ .landing-experience .template-grid .world-card:nth-child(2n) [data-template]::before{animation-delay:-2.1s}
 }
-html[data-ambient-motion=paused] [data-decor],html[data-ambient-motion=paused] [data-decor] *,.atmosphere-hidden [data-decor],.atmosphere-hidden [data-decor] *{animation-play-state:paused!important}
+html[data-ambient-motion=paused] [data-decor],html[data-ambient-motion=paused] [data-decor] *,.atmosphere-hidden [data-decor],.atmosphere-hidden [data-decor] *,html[data-ambient-motion=paused] .landing-experience #app .btn::before,html[data-ambient-motion=paused] .landing-experience [data-template]::before{animation-play-state:paused!important}
 
 @media (max-width:800px){
  .flora-navbar{top:calc(100% - 7px);width:min(250px,64vw)}
