@@ -122,7 +122,7 @@ app.patch('/api/admin/templates/:id',auth,requireAdmin,async(req,res)=>{
 });
 
 app.get('/api/payments/status',(_,res)=>res.json({enabled:false,message:'Rasmiy to‘lov provayderi konfiguratsiya qilinmaguncha to‘lovlar o‘chiq'}));
-app.use(express.static(path.join(path.dirname(fileURLToPath(import.meta.url)),'public'),{maxAge:'1h'}));
+app.use(express.static(path.join(path.dirname(fileURLToPath(import.meta.url)),'public'),{maxAge:'1h',setHeaders(res,file){if(file.endsWith('.html'))res.setHeader('Cache-Control','no-cache')}}));
 app.get('*',(_,res)=>res.sendFile(path.join(path.dirname(fileURLToPath(import.meta.url)),'public','index.html')));
 app.use((err,req,res,next)=>{console.error(err.message);res.status(500).json({error:'Serverda xatolik yuz berdi'});});
 app.listen(PORT,'0.0.0.0',()=>console.log('TabrikUZ started on '+PORT+(db?' (MongoDB)':' (demo memory)')));
