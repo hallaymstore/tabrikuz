@@ -26,7 +26,7 @@ function decorate(){
 document.querySelectorAll('.mini-invite').forEach(el=>{if(el.dataset.realAsset)return;el.dataset.realAsset='1';const old=el.querySelector('.mini-icon,.game-art');if(old){let raw=old.textContent;let kind=/💍|🥂/.test(raw)?'wedding':/💌/.test(raw)?'love':/🎓|🎊/.test(raw)?'event':'birthday';old.outerHTML=media(which(kind),true);}});
 const deco=document.querySelector('.hero-card .deco');if(deco&&!deco.dataset.realAsset){deco.dataset.realAsset='1';deco.innerHTML=media('balloons');}const hero=document.querySelector('.hero-visual');if(hero&&!hero.querySelector('.lottie-hero')){const d=document.createElement('div');d.className='lottie-hero';d.innerHTML=media('gift');hero.append(d);particles(hero,14)}
 document.querySelectorAll('.template-art').forEach(el=>{if(!el.dataset.realDecor){el.dataset.realDecor='1';particles(el,8)}});
-document.querySelectorAll('.preview-page,.invite-public').forEach(el=>{if(el.dataset.realAsset)return;el.dataset.realAsset='1';ornament(el);let old=el.querySelector('.hero-emoji,.symbol,.game-art');const art=media(which(getType()));if(old)old.outerHTML=art;else el.insertAdjacentHTML('afterbegin',art);});
+document.querySelectorAll('.preview-page,.invite-public').forEach(el=>{if(el.dataset.realAsset)return;el.dataset.realAsset='1';ornament(el);let old=el.querySelector('.hero-emoji,.symbol,.game-art');if(el.querySelector('.world-art'))return;const art=media(which(getType()));if(old)old.outerHTML=art;else el.insertAdjacentHTML('afterbegin',art);});
 const form=document.querySelector('#builderForm');if(form)sceneControls(form);
 const invite=document.querySelector('.invite-public');if(invite){controls(invite);openIntro();}
 mountFallback(document);

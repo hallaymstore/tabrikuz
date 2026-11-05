@@ -14,7 +14,7 @@ const JWT_SECRET=process.env.JWT_SECRET||'';
 const DB_URL=process.env.MONGODB_URI||'';
 const ADMIN_EMAIL=(process.env.ADMIN_EMAIL||'').trim().toLowerCase();
 const ADMIN_BOOTSTRAP_KEY=process.env.ADMIN_BOOTSTRAP_KEY||'';
-const memory={users:[],invites:[],wishes:[],rsvps:[]};
+const memory={users:[],invites:[],wishes:[],rsvps:[],templateOverrides:[],auditLogs:[]};
 let db=null;
 if(DB_URL){try{const client=new MongoClient(DB_URL,{serverSelectionTimeoutMS:9000});await client.connect();db=client.db(process.env.MONGODB_DB||'tabrikuz');await Promise.all([db.collection('users').createIndex({email:1},{unique:true}),db.collection('invites').createIndex({slug:1},{unique:true}),db.collection('wishes').createIndex({inviteId:1}),db.collection('rsvps').createIndex({inviteId:1})]);console.log('MongoDB connected');}catch(e){console.error('MongoDB connection error:',e.message);process.exit(1);}}
 if(!JWT_SECRET||JWT_SECRET.length<32){console.error('JWT_SECRET must be at least 32 characters');process.exit(1);}
