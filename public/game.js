@@ -10,7 +10,7 @@ wedding:'https://assets-v2.lottiefiles.com/a/ddda171a-1183-11ee-b96d-73feb5b605b
 love:'https://assets-v2.lottiefiles.com/a/a6fe5d2c-1170-11ee-be19-1f39e16fd993/9IzpgnGLQL.lottie',
 hearts:'https://assets-v2.lottiefiles.com/a/ce8b2e4c-1166-11ee-b6b8-e7db5fb791e8/wMRN4XxRm6.lottie'
 };
-function media(kind,small=false){const asset=CDN[kind]?kind:'gift';return '<div class="lottie-art '+(small?'lottie-art-small':'')+'" role="img" aria-label="Animatsiya: '+asset+'"><dotlottie-wc src="/assets/lottie/'+asset+'.lottie" data-fallback="'+CDN[asset]+'" autoplay loop speed="1" style="width:100%;height:100%;display:block"></dotlottie-wc></div>';}
+function media(kind,small=false){const asset=CDN[kind]?kind:'gift';return '<div class="lottie-art '+(small?'lottie-art-small':'')+'" role="img" aria-label="Animatsiya: '+asset+'"><dotlottie-wc src="/assets/lottie/'+asset+'.lottie?v=2" data-fallback="'+CDN[asset]+'" autoplay loop speed="1" style="width:100%;height:100%;display:block"></dotlottie-wc></div>';}
 function mountFallback(element){element.querySelectorAll('dotlottie-wc:not([data-bound])').forEach(x=>{x.dataset.bound='1';x.addEventListener('error',()=>{if(x.dataset.cdnTried)return;x.dataset.cdnTried='1';x.setAttribute('src',x.dataset.fallback)});});}
 function which(type){if(type==='birthday')return 'cake';if(type==='wedding')return 'wedding';if(type==='love')return 'love';return 'gift';}
 function getType(){const select=document.querySelector('#builderForm [name=type]');if(select)return select.value;const label=document.querySelector('.invite-label')?.textContent||'';if(/to‘y/i.test(label))return 'wedding';if(/sevgi/i.test(label))return 'love';if(/tadbir/i.test(label))return 'event';return 'birthday';}
