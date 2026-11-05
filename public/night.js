@@ -5,8 +5,8 @@
    and it stops whenever it is day, the tab is hidden or motion is reduced. */
 (()=>{'use strict';
 const root=document.documentElement,KEY='tabrikuz-theme';
-const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-const coarse=matchMedia('(pointer: coarse)').matches;
+const reduced={matches:false,addEventListener(){}};
+const coarse=matchMedia('(pointer: coarse)').matches,lite=root.classList.contains('lite');
 let theme='day';try{theme=localStorage.getItem(KEY)==='night'?'night':'day'}catch{}
 
 // ---- Toggle in the navbar: animated sun / moon.
@@ -29,7 +29,7 @@ const lanterns=['left','right'].map(side=>{
 });
 const veil=document.createElement('canvas');veil.className='night-veil';veil.setAttribute('aria-hidden','true');
 const ctx=veil.getContext('2d');
-const flyCount=coarse?5:9;
+const flyCount=lite?4:coarse?5:9;
 const flies=Array.from({length:flyCount},(_,i)=>{
  const el=document.createElement('img');el.className='firefly';el.src='/assets/ornaments/firefly.webp';el.alt='';el.decoding='async';
  return {el,x:Math.random()*innerWidth,y:120+Math.random()*(innerHeight-160),a:Math.random()*6.28,s:.35+Math.random()*.55,
@@ -54,7 +54,7 @@ addEventListener('pointermove',e=>{pointer.x=e.clientX;pointer.y=e.clientY;point
 addEventListener('pointerdown',e=>{pointer.x=e.clientX;pointer.y=e.clientY;pointer.on=1},{passive:true});
 document.addEventListener('pointerleave',()=>pointer.on=0);
 
-let scale=coarse?.34:.5,raf=0,last=0;
+let scale=lite?.25:coarse?.34:.5,raf=0,last=0,skip=0;
 function resize(){veil.width=Math.ceil(innerWidth*scale);veil.height=Math.ceil(innerHeight*scale)}
 addEventListener('resize',resize,{passive:true});
 
@@ -68,6 +68,8 @@ let warmth=[];
 function frame(t){
  raf=0;
  if(root.dataset.theme!=='night'||document.hidden)return;
+ // Low-power devices redraw the veil at half rate; motion stays smooth enough.
+ if(lite&&(skip^=1)){raf=requestAnimationFrame(frame);return}
  const now=t/1000,dt=Math.min(.05,(t-last)/1000||.016);last=t;
  const w=innerWidth,h=innerHeight;
  ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,veil.width,veil.height);

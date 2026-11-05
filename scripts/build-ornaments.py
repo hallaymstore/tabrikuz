@@ -307,7 +307,11 @@ c = np.array(cloud).astype(float)
 night = np.array([62, 92, 170], dtype=float)  # moonlit navy, as in the midnight scene
 lumc = c[:, :, :3].mean(axis=2, keepdims=True) / 255
 c[:, :, :3] = night * (.42 + .7 * lumc) + np.array([50, 60, 80]) * lumc ** 3
-c[:, :, 3] *= .85
+# Drop the faint haze around the cloud and feather the edges so no box shows.
+h_, w_ = c.shape[:2]
+yy_, xx_ = np.mgrid[0:h_, 0:w_]
+edge_ = np.clip(np.minimum.reduce([xx_, yy_, w_ - 1 - xx_, h_ - 1 - yy_]) / 40, 0, 1)
+c[:, :, 3] = np.where(c[:, :, 3] < 60, 0, (c[:, :, 3] - 60) / 195 * 255) * .85 * edge_
 nc = Image.fromarray(np.clip(c, 0, 255).astype(np.uint8), 'RGBA')
 nc.thumbnail((900, 900))
 nc.save(OUT / 'night-cloud.webp', 'WEBP', quality=86, method=6)

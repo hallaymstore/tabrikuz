@@ -1,5 +1,5 @@
 /* Page atmosphere is decorative, bounded, and independent of greeting content. */
-(()=>{'use strict';const root=document.documentElement,stage=document.getElementById('pageAtmosphere'),button=document.getElementById('atmosphereToggle'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
+(()=>{'use strict';const root=document.documentElement,stage=document.getElementById('pageAtmosphere'),button=document.getElementById('atmosphereToggle'),reduced={matches:false,addEventListener(){}};
 let preference='running';try{preference=localStorage.getItem('tabrikuz-atmosphere')||'running'}catch{}
 function apply(){const running=!reduced.matches&&preference==='running';root.dataset.ambientMotion=running?'running':'paused';button.setAttribute('aria-pressed',String(running));button.setAttribute('aria-label',running?'Fon animatsiyasini to‘xtatish':'Fon animatsiyasini yoqish');button.disabled=reduced.matches;button.querySelector('span').textContent=running?'Jonli fon':'Sokin fon';if(!running){root.style.setProperty('--ambient-x','0px');root.style.setProperty('--ambient-y','0px')}}
 const sparks=document.createElement('div');sparks.className='atmosphere-sparks';for(let i=0;i<18;i++){const dot=document.createElement('i');dot.style.cssText='--x:'+((i*37+9)%98)+'%;--y:'+((i*23+7)%96)+'%;--duration:'+(10+i%7)+'s;--delay:-'+i*1.3+'s';sparks.append(dot)}stage.append(sparks);

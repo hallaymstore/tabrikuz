@@ -49,7 +49,7 @@ function layers(t,live){const c=config[t.id];if(!c)return null;const alt={sky:'B
  return '<div class="scene-art variant-'+c.variant+'" data-scene-art="'+c.kind+'" data-motion="running" role="img" aria-label="'+alt+'"><div class="motion-camera"><img class="scene-background" src="'+bg+'" alt="" loading="lazy" decoding="async" draggable="false">'+balloons+rings+extras+'<div class="scene-fire" aria-hidden="true">'+fire+'</div><div class="scene-orbit" aria-hidden="true">'+orbit+'</div><div class="scene-motes" aria-hidden="true">'+motes+'</div></div></div>';
 }
 window.TabrikSceneArt={config,layers};
-const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+const reduced={matches:false,addEventListener(){}};
 let pending=false;const observed=new Set();
 const visibility=new IntersectionObserver(entries=>entries.forEach(({target,isIntersecting})=>target.classList.toggle('motion-offscreen',!isIntersecting)),{threshold:.01});
 function sync(){pending=false;for(const el of observed)if(!el.isConnected){visibility.unobserve(el);observed.delete(el)}document.querySelectorAll('[data-scene-art]').forEach(el=>{if(observed.has(el))return;observed.add(el);visibility.observe(el);el.dataset.motion=reduced.matches?'paused':'running'});}

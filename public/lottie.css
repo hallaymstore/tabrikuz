@@ -20,4 +20,4 @@
 .decor-corner.br{bottom:16px;right:15px}
 .motion-intro dotlottie-wc{filter:drop-shadow(0 20px 40px #7e35593a)}
 @media (max-width:770px){.lottie-hero{right:-15px;bottom:2px}.lottie-hero .lottie-art{width:115px;height:115px}.template-card .mini-invite .lottie-art{width:67px;height:67px}.preview-page .lottie-art{width:130px;height:130px}.invite-public .lottie-art{width:180px;height:180px}.template-art{min-height:190px}.template-art .mini-invite{min-height:155px}}
-@media (prefers-reduced-motion:reduce){.lottie-hero{animation:none}}
+

@@ -32,7 +32,7 @@
 @keyframes card-wisp-float{to{transform:translate(16px,-15px) rotate(12deg) scale(1.12)}}@keyframes card-trail-turn{to{transform:rotate(390deg)}}@keyframes card-petal-drift{to{transform:translate(-14px,-18px) rotate(50deg);opacity:.16}}@keyframes card-dust-glow{to{opacity:.12;transform:rotate(20deg) scale(.65)}}
 html[data-ambient-motion=paused] .card-dreamscape *,.atmosphere-hidden .card-dreamscape *,.card-caption-offscreen .card-dreamscape *{animation-play-state:paused!important}
 @media(max-width:600px){.landing-experience .template-grid .world-card .template-info{padding:27px 20px 24px!important}.landing-experience .template-grid .world-card h4{font-size:28px!important}.card-dreamscape{inset:-22px -4px 0}.template-grid{row-gap:30px!important}}
-@media(prefers-reduced-motion:reduce){.card-dreamscape *{animation:none!important}.landing-experience .template-grid .world-card{transition:none;transform:none!important}}
+
 /* A visible illustrated silk plaque with independently animated miniatures. */
 .landing-experience .template-grid .world-card .template-info{margin: -10px 0 0;padding:34px 24px 27px!important;min-height:221px;border-radius:22px 18px 44px 26px / 19px 26px 30px 36px;background:#fff8ef!important;box-shadow:0 12px 25px #85647b20,0 2px 0 #fff7edaa;overflow:hidden}
 .card-dreamscape{inset:0;mask-image:none;border-radius:inherit;background:linear-gradient(100deg,#fffaf32b 35%,#fff7ef00),url('/assets/backgrounds/caption-garden.webp') center/cover no-repeat}
@@ -46,4 +46,4 @@ html[data-ambient-motion=paused] .card-dreamscape *,.atmosphere-hidden .card-dre
 .world-card[data-card-kind=event] .card-dreamscape{background-image:linear-gradient(110deg,#eafaff66,#fff8ef11),url('/assets/backgrounds/caption-garden.webp')}.world-card[data-card-tone=midnight] .card-dreamscape,.world-card[data-card-tone=noir] .card-dreamscape{background-image:linear-gradient(110deg,#e8e1fa77,#fff8ef11),url('/assets/backgrounds/caption-garden.webp')}
 @keyframes caption-lantern-swing{from{rotate:-6deg}to{rotate:6deg}}@keyframes caption-light-glow{to{opacity:.45;box-shadow:0 0 10px 3px #ffd68b99}}@keyframes caption-flower-sway{to{transform:rotate(3deg) translateY(-2px)}}
 @media(max-width:600px){.landing-experience .template-grid .world-card .template-info{padding:33px 20px 25px!important;min-height:216px}.caption-lantern{right:9px;width:31px}.caption-floral{width:85px}.landing-experience .template-grid .world-card h4{font-size:26px!important}}
-@media(prefers-reduced-motion:reduce){.caption-lantern,.caption-floral,.caption-lights i{animation:none!important}}
+

@@ -1,6 +1,6 @@
 /* Licensed pre-made Lottie scenes. Source + license: /assets/LICENSES.md in repo. */
 (()=>{'use strict';
-const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduced=false;
 const CDN={
 cake:'https://assets-v2.lottiefiles.com/a/4b3ac7e4-118b-11ee-8cc2-23e407cabb5f/ZafQHP4FVZ.lottie',
 gift:'https://assets-v2.lottiefiles.com/a/0614ec90-1185-11ee-b4b6-876b7a2465e4/KjvdxT5q7l.lottie',

@@ -51,7 +51,7 @@
 @keyframes w-bounce{0%,100%{transform:translateY(0) scale(1)}40%{transform:translateY(-16%) scale(.96,1.05)}55%{transform:translateY(0) scale(1.08,.92)}70%{transform:translateY(-3%)}}
 @keyframes w-fall{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:1}85%{opacity:1}100%{transform:translateY(130vh) rotate(var(--r));opacity:0}}
 
-@media (prefers-reduced-motion:no-preference){
+
  [data-motion=running] .w-rise{animation:w-rise var(--t) linear var(--d) infinite}
  [data-motion=running] .w-cloud{animation:w-cloud var(--t) linear var(--d) infinite}
  [data-motion=running] .w-bouquet{animation:w-bouquet var(--t) linear var(--d) infinite}
@@ -63,7 +63,7 @@
  [data-motion=running] .w-sweet{animation:w-bounce 1.8s ease-in-out infinite}
  [data-motion=running] .w-sweet.s2{animation-delay:-.4s}[data-motion=running] .w-sweet.s3{animation-delay:-.9s}[data-motion=running] .w-sweet.s4{animation-delay:-1.3s}[data-motion=running] .w-sweet.s5{animation-delay:-.6s;animation-duration:2.4s}
  [data-motion=running] .w-fall{animation:w-fall var(--t) linear var(--d) infinite}
-}
+
 [data-motion=paused] .world-layer *,.motion-offscreen .world-layer *,.motion-document-hidden .world-layer *,html[data-ambient-motion=paused] .world-layer *{animation-play-state:paused!important}
 /* The icons inside the worlds use the scene's own pause state too. */
 [data-motion=paused] .world-layer .ti *,.motion-offscreen .world-layer .ti *{animation-play-state:paused!important}

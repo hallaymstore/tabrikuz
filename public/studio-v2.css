@@ -65,4 +65,4 @@ body.studio-v2{background:#100f27;color:#f8f4ff}
 @keyframes stageStars{to{background-position:90px 90px,130px 110px}}
 @media(max-width:1000px){.studio-v2 .workspace-grid{grid-template-columns:1fr}.studio-v2 .workspace-grid>div:last-child{position:static}.studio-v2 #livePreview{min-height:690px}.studio-v2 .preview-page{min-height:560px}}
 @media(max-width:650px){.studio-v2 .page-head{padding:28px 0 18px}.studio-v2 .page-head h1{font-size:38px}.studio-v2 .workspace{padding:18px 0 70px}.studio-v2 .workspace-grid>.panel{padding:20px 16px}.studio-v2 #livePreview{padding:70px 15px 72px;min-height:620px}.studio-v2 .preview-page{padding:28px 20px;min-height:480px;width:min(100%,390px)}.studio-v2 .preview-page h2{font-size:35px}.studio-v2 .preview-page .lottie-art{height:150px;width:150px}.studio-v2 .stage-actions button{padding:11px 12px;font-size:11px}}
-@media(prefers-reduced-motion:reduce){.studio-v2 .preview-page{animation:none}.studio-v2 #livePreview:before{animation:none}}
+

@@ -211,7 +211,7 @@ body[data-surface=studio] .flora-edge{--v:clamp(12px,calc((100vw - 1420px)/2),64
 @keyframes flora-glint{0%,55%,100%{opacity:0;transform:scale(.5)}72%{opacity:1;transform:scale(1.4)}}
 @keyframes flora-fall{from{transform:translateY(0)}to{transform:translateY(calc(100vh + 80px))}}
 @keyframes flora-flutter{0%{transform:translateX(0) rotate(0) rotateY(0)}25%{transform:translateX(var(--sway)) rotate(70deg) rotateY(60deg)}50%{transform:translateX(0) rotate(160deg) rotateY(0)}75%{transform:translateX(calc(var(--sway)*-1)) rotate(250deg) rotateY(-60deg)}100%{transform:translateX(0) rotate(360deg) rotateY(0)}}
-@media (prefers-reduced-motion:no-preference){
+
  .flora-live .flora-part.k-leaf{animation:flora-leaf var(--t) ease-in-out var(--d) infinite alternate}
  .flora-live .flora-part.k-bloom{animation:flora-bloom calc(var(--t)*1.2) ease-in-out var(--d) infinite alternate}
  .flora-live .flora-part.k-petals{animation:flora-petals calc(var(--t)*1.4) ease-in-out var(--d) infinite alternate}
@@ -232,8 +232,8 @@ body[data-surface=studio] .flora-edge{--v:clamp(12px,calc((100vw - 1420px)/2),64
  .footer .logo-spin,.footer .logo-lid,.footer .logo-shadow{animation-delay:-2.4s}
  .footer .logo-bit{animation-delay:calc(var(--dl) - 2.4s)}
  .footer .logo-ch{animation-delay:calc(var(--i)*.075s - 2.4s)}
-}
-@media (prefers-reduced-motion:reduce){.flora-petals{display:none}}
+
+
 html[data-ambient-motion=paused] [data-decor],html[data-ambient-motion=paused] [data-decor] *,.atmosphere-hidden [data-decor],.atmosphere-hidden [data-decor] *{animation-play-state:paused!important}
 html[data-ambient-motion=paused] .flora-petals{display:none}
 
@@ -256,3 +256,9 @@ html[data-ambient-motion=paused] .flora-petals{display:none}
  /* Phones: half the parts move, the rest rest — lighter on the GPU. */
  .flora-part:nth-of-type(2n){animation:none!important}
 }
+
+/* Low-power devices (theme-boot.js adds .lite): a third of the parts move,
+   fewer petals fall — the page stays alive without dropping frames. */
+.lite .flora-part:not(:nth-of-type(3n)){animation:none!important}
+.lite .flora-petal:nth-child(n+7){display:none}
+.lite .flora-glint,.lite .flora-lamp-glow{display:none}

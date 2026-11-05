@@ -107,4 +107,4 @@ body{overflow-x:hidden}
 @keyframes introExit{to{opacity:0;transform:scale(1.11)}}
 @keyframes confettiFall{to{transform:translate3d(var(--dx,30px),110vh,0) rotate(720deg);opacity:0}}
 @media(max-width:770px){.scene-options{grid-template-columns:repeat(2,1fr)}.admin-grid{grid-template-columns:repeat(2,1fr)}.hero-gift{width:100px;right:2%;bottom:5%}.game-art{width:125px;height:125px}.scene-controls button{font-size:11px}.admin-table{display:block;overflow:auto}.preview-page .decor-corner{width:82px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.motion-overlay{background:#57465b}}
+
