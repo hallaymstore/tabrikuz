@@ -31,100 +31,117 @@ body[data-surface] .header-actions .btn-ghost,.landing-experience #app .btn-outl
 .landing-experience #app .btn:disabled{filter:saturate(.5);opacity:.72}
 .landing-experience #app .btn:focus-visible,.header-actions .btn:focus-visible{outline:3px solid #b389b8;outline-offset:4px}
 
-/* ---------- Navbar: a slim garland hanging from the header's lower edge ---------- */
-.flora-navbar{position:absolute;left:50%;top:calc(100% - 9px);z-index:1;width:clamp(240px,30vw,440px);transform:translateX(-50%)}
-.flora-navbar-art{width:100%;height:auto;filter:var(--flora-shadow);transform-origin:50% 0;opacity:.96}
+/* ---------- Navbar: full-width vine on the header's lower edge + centre garland ---------- */
+.flora-navbar{position:absolute;left:0;right:0;top:calc(100% - 13px);height:26px;z-index:1}
+.flora-navbar-vine{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;filter:var(--flora-shadow)}
+.flora-navbar-art{position:absolute;left:50%;top:2px;width:clamp(230px,30vw,440px);height:auto;margin-left:calc(clamp(230px,30vw,440px)/-2);filter:var(--flora-shadow);transform-origin:50% 0}
 
-/* ---------- Section dividers, anchored to the section boundary ----------
-   --w is the art width and --h its height (from each WebP's aspect ratio). */
-.flora-divider{position:relative;z-index:3;display:block;width:var(--w);max-width:calc(100% - 32px);margin-inline:auto}
-.flora-sway{position:relative;transform-origin:50% 8%}
+/* ---------- Seams: a full-width vine closes every section boundary and a
+   centre piece sits on it. --w/--h are the centre art's width and height. ---------- */
+.flora-divider{position:relative;z-index:4;display:block;width:100%;height:0;--vh:clamp(40px,6.4vw,124px)}
+.flora-vine{position:absolute;left:0;top:0;width:100%;height:var(--vh);translate:0 -50%;object-fit:cover;object-position:50% 50%;filter:var(--flora-shadow);transform-origin:50% 50%}
+.flora-sway{position:absolute;left:50%;top:0;width:var(--w);margin-left:calc(var(--w)/-2);translate:0 -50%;transform-origin:50% 10%}
 .flora-divider-art{width:100%;height:auto;filter:var(--flora-shadow)}
-.flora-divider--01{--w:min(700px,86vw);--h:calc(var(--w)*.159)}
+.flora-divider--01{--w:min(660px,84vw);--h:calc(var(--w)*.159)}
 .flora-divider--02{--w:min(820px,94vw);--h:calc(var(--w)*.2285)}
 .flora-divider--03{--w:min(760px,92vw);--h:calc(var(--w)*.175)}
-/* 01 opens the gallery below the hero's marquee strip: it sits in flow and
-   the gallery's top padding tucks up under it. */
-.flora-divider--01{margin-top:clamp(14px,2.2vw,26px);margin-bottom:calc(-1*clamp(34px,5.4vw,66px))}
-/* 02 and 03 straddle the seam: zero layout height, art centred on the line,
-   and both neighbours get enough padding to keep their content clear. */
-.flora-divider--02,.flora-divider--03{height:0}
-.flora-divider--02>.flora-sway,.flora-divider--03>.flora-sway{translate:0 -50%}
-.landing-experience #app>section:has(+.flora-divider--02),.landing-experience #app>section:has(+.flora-divider--03){padding-bottom:max(var(--seam-pad),90px)}
-.landing-experience #app>.flora-divider--02+section,.landing-experience #app>.flora-divider--03+section{padding-top:max(var(--seam-pad),90px)}
-#app{--seam-pad:calc(min(820px,94vw)*.2285/2 + 30px)}
+.flora-divider--04{--w:min(760px,92vw);--h:calc(var(--w)*.176)}
+/* Room on both sides of each seam so content stays clear of the art. */
+#app{--seam-pad:max(calc(min(820px,94vw)*.2285/2 + 34px),calc(clamp(40px,6.4vw,124px)/2 + 34px))}
+.landing-experience #app>section:not(.celebration-hero):has(+.flora-divider){padding-bottom:max(var(--seam-pad),90px)}
+.landing-experience #app>.flora-divider+section{padding-top:max(var(--seam-pad),90px)}
+/* The hero ends in its marquee strip: that seam's vine sits on the strip's
+   lower edge and its centre piece hangs below, inside the gallery's padding. */
+.landing-experience #app>.celebration-hero+.flora-divider .flora-vine{translate:0 -14px}
+.landing-experience #app>.celebration-hero+.flora-divider .flora-sway{translate:0 calc(var(--vh) - 34px)}
+.landing-experience #app>.celebration-hero+.flora-divider+section{padding-top:calc(clamp(40px,6.4vw,124px) + min(660px,84vw)*.159 + var(--seam-gap,24px))}
+.flora-seam--footer{position:absolute;left:0;right:0;top:0;z-index:5}
 @media (max-width:800px){
- .landing-experience #app>section:has(+.flora-divider--02),.landing-experience #app>section:has(+.flora-divider--03){padding-bottom:var(--seam-pad)}
- .landing-experience #app>.flora-divider--02+section,.landing-experience #app>.flora-divider--03+section{padding-top:var(--seam-pad)}
+ .landing-experience #app>section:not(.celebration-hero):has(+.flora-divider){padding-bottom:var(--seam-pad)}
+ .landing-experience #app>.flora-divider+section{padding-top:var(--seam-pad)}
 }
 
 /* Lamps hang from fixed points on divider 02; each pivots at its chain top. */
-.flora-lamp{position:absolute;left:calc(var(--x)*100%);top:calc(var(--y)*100%);width:clamp(9px,1.6vw,15px);margin-left:calc(clamp(9px,1.6vw,15px)/-2);transform-origin:50% 0}
+.flora-lamp{position:absolute;left:calc(var(--x)*100%);top:calc(var(--y)*100%);width:clamp(10px,1.7vw,16px);margin-left:calc(clamp(10px,1.7vw,16px)/-2);transform-origin:50% 0}
 .flora-lamp-art{width:100%;height:auto;filter:drop-shadow(0 2px 2px #8b6a3a33)}
 .flora-lamp-glow{position:absolute;left:-90%;right:-90%;top:42%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#ffe7a8aa,#ffd88a33 45%,transparent 70%);opacity:.55;mix-blend-mode:screen}
-.flora-glint{position:absolute;left:calc(var(--x)*100%);top:calc(var(--y)*100%);width:clamp(5px,.8vw,8px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,#fff 0 22%,#fff6e0aa 40%,transparent 72%);opacity:0}
+.flora-glint{position:absolute;left:calc(var(--x)*100%);top:calc(var(--y)*100%);width:clamp(6px,.9vw,9px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,#fff 0 22%,#fff6e0aa 40%,transparent 72%);opacity:0}
 
-/* ---------- Corner bouquets: hug the card outline, never its content ---------- */
-.flora-host{position:relative;overflow:visible!important}
-.flora-corner{position:absolute;z-index:3;width:var(--size,96px)}
+/* ---------- Corner bouquets: mass outside the box, tips over the padding ---------- */
+.flora-host{position:relative}
+.flora-corner{position:absolute;z-index:6;width:var(--size,96px)}
 .flora-corner-art{width:100%;height:auto;filter:var(--flora-shadow)}
-.flora-corner--top-left{left:var(--out,-18px);top:var(--out,-18px);transform-origin:0 0}
-.flora-corner--top-right{right:var(--out,-18px);top:var(--out,-18px);transform-origin:100% 0}
-.flora-corner--bottom-left{left:var(--out,-18px);bottom:var(--out,-18px);transform-origin:0 100%}
-.flora-corner--bottom-right{right:var(--out,-18px);bottom:var(--out,-18px);transform-origin:100% 100%}
-.cta-banner>.flora-corner{--size:clamp(92px,13vw,170px);--out:clamp(-26px,-1.8vw,-12px)}
-.cta-banner>.flora-corner--bottom-right{--size:clamp(96px,14vw,184px)}
-.price-card>.flora-corner{--size:clamp(84px,9vw,118px);--out:-20px}
-.step>.flora-corner{--size:clamp(74px,7.4vw,98px);--out:-22px}
+.flora-mirror .flora-corner-art{scale:-1 1}
+.flora-corner--top-left{left:var(--ox,var(--out,-18px));top:var(--oy,var(--out,-18px));transform-origin:0 0}
+.flora-corner--top-right{right:var(--ox,var(--out,-18px));top:var(--oy,var(--out,-18px));transform-origin:100% 0}
+.flora-corner--bottom-left{left:var(--ox,var(--out,-18px));bottom:var(--oy,var(--out,-18px));transform-origin:0 100%}
+.flora-corner--bottom-right{right:var(--ox,var(--out,-18px));bottom:var(--oy,var(--out,-18px));transform-origin:100% 100%}
+.showcase-scene>.flora-corner{--size:clamp(80px,7.4vw,118px);--out:clamp(-58px,-3.8vw,-30px)}
+.world-card>.flora-corner{--size:clamp(84px,8vw,118px);--out:clamp(-36px,-2.4vw,-22px)}
+.cta-banner>.flora-corner{--size:clamp(84px,12vw,176px);--out:clamp(-34px,-2.2vw,-14px)}
+.price-card>.flora-corner{--size:clamp(88px,9vw,124px);--out:-26px}
+.step>.flora-corner{--size:clamp(80px,7.6vw,104px);--out:-26px}
+#app>section>.flora-corner{--size:clamp(110px,15vw,250px);--ox:0px;--oy:0px;z-index:2}
+#authModal .modal>.flora-corner{--size:110px;--out:0px}
 
-/* ---------- Button sprigs: small, on the outer edge ---------- */
-.landing-experience #heroCreate,.landing-experience #heroTry,.landing-experience .cta-banner [data-create],.landing-experience .template-grid [data-template]{position:relative;overflow:visible!important}
-.landing-experience #heroCreate::before,.landing-experience #heroTry::before,.landing-experience .cta-banner [data-create]::before,.landing-experience .template-grid [data-template]::before{content:'';position:absolute;z-index:3;pointer-events:none;background:center/contain no-repeat;transition:transform .45s cubic-bezier(.3,.7,.3,1);filter:drop-shadow(0 1px 1px #5b3f5222)}
-.landing-experience #heroCreate::before{background-image:url('/assets/ornaments/button-floral-01.webp');width:50px;height:32px;right:-16px;top:-19px;transform-origin:20% 90%}
-.landing-experience #heroTry::before{background-image:url('/assets/ornaments/button-floral-02.webp');width:46px;height:18px;left:-12px;bottom:-11px;transform-origin:90% 50%}
-.landing-experience .cta-banner [data-create]::before{background-image:url('/assets/ornaments/button-floral-01.webp');width:54px;height:34px;left:-20px;top:-20px;transform:scaleX(-1);transform-origin:80% 90%}
-.landing-experience .template-grid [data-template]::before{background-image:url('/assets/ornaments/button-floral-02.webp');width:44px;height:17px;right:-8px;top:-12px;transform-origin:10% 60%}
-.landing-experience #heroCreate:hover::before,.landing-experience .template-grid [data-template]:hover::before{transform:rotate(-5deg) translateY(-1px)}
-.landing-experience #heroTry:hover::before{transform:rotate(4deg)}
-.landing-experience .cta-banner [data-create]:hover::before{transform:scaleX(-1) rotate(-5deg) translateY(-1px)}
+/* ---------- Drifting sprigs behind each section's content ---------- */
+.flora-float{position:absolute;inset:0;z-index:0;overflow:hidden}
+.flora-host>.shell,.celebration-hero>.celebration-grid{position:relative;z-index:1}
+.flora-drift{position:absolute;left:var(--x);top:var(--y);width:clamp(26px,3vw,46px);height:auto;opacity:.75;filter:var(--flora-shadow)}
 
-/* ---------- Motion: transform/opacity only, and only while on screen ----------
-   Each layer has its own rhythm so nothing moves in lock-step. */
-@keyframes flora-sway{0%{transform:rotate(-1.6deg) translateY(0)}50%{transform:rotate(.4deg) translateY(-3px)}100%{transform:rotate(1.6deg) translateY(-1px)}}
-@keyframes flora-breathe{from{transform:scale(1)}to{transform:scale(1.018)}}
-@keyframes flora-nod{0%{transform:rotate(-1.2deg) translateY(0)}100%{transform:rotate(1.2deg) translateY(2px)}}
-@keyframes flora-corner-breathe{0%{transform:rotate(-2deg) scale(1)}50%{transform:rotate(.5deg) scale(1.025)}100%{transform:rotate(2deg) scale(1.01)}}
-@keyframes flora-lamp-swing{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
-@keyframes flora-lamp-glow{from{opacity:.3}to{opacity:.9}}
-@keyframes flora-glint{0%,62%,100%{opacity:0;transform:scale(.5)}78%{opacity:1;transform:scale(1.3)}}
-@keyframes flora-sprig{from{rotate:-4deg}to{rotate:5deg}}
+
+/* ---------- Button sprigs ---------- */
+.landing-experience #heroCreate,.landing-experience #heroTry,.landing-experience .cta-banner [data-create],.landing-experience .template-grid [data-template],.landing-experience .price-card .btn{position:relative;overflow:visible!important}
+.landing-experience #heroCreate::before,.landing-experience #heroTry::before,.landing-experience .cta-banner [data-create]::before,.landing-experience .template-grid [data-template]::before,.landing-experience .price-card .btn::before{content:'';position:absolute;z-index:3;pointer-events:none;background:center/contain no-repeat;transition:transform .35s cubic-bezier(.3,.7,.3,1);filter:drop-shadow(0 1px 1px #5b3f5222)}
+.landing-experience #heroCreate::before{background-image:url('/assets/ornaments/button-floral-01.webp');width:54px;height:34px;right:-18px;top:-21px;transform-origin:20% 90%}
+.landing-experience #heroTry::before{background-image:url('/assets/ornaments/button-floral-02.webp');width:50px;height:20px;left:-14px;bottom:-12px;transform-origin:90% 50%}
+.landing-experience .cta-banner [data-create]::before{background-image:url('/assets/ornaments/button-floral-01.webp');width:58px;height:36px;left:-22px;top:-22px;transform:scaleX(-1);transform-origin:80% 90%}
+.landing-experience .template-grid [data-template]::before{background-image:url('/assets/ornaments/button-floral-02.webp');width:48px;height:19px;right:-10px;top:-14px;transform-origin:10% 60%}
+.landing-experience .price-card .btn::before{background-image:url('/assets/ornaments/button-floral-01.webp');width:50px;height:32px;right:-16px;top:-20px;transform-origin:20% 90%}
+.landing-experience #heroCreate:hover::before,.landing-experience .template-grid [data-template]:hover::before,.landing-experience .price-card .btn:hover::before{transform:rotate(-9deg) translateY(-2px) scale(1.08)}
+.landing-experience #heroTry:hover::before{transform:rotate(8deg) scale(1.08)}
+.landing-experience .cta-banner [data-create]:hover::before{transform:scaleX(-1) rotate(-9deg) translateY(-2px) scale(1.08)}
+
+/* ---------- Motion: quick, layered, transform/opacity only, on screen only ---------- */
+@keyframes flora-sway{0%{transform:rotate(-2deg) translateY(0)}50%{transform:rotate(.6deg) translateY(-4px)}100%{transform:rotate(2deg) translateY(-1px)}}
+@keyframes flora-breathe{from{transform:scale(1)}to{transform:scale(1.03)}}
+@keyframes flora-ripple{0%{transform:translateX(-6px) scaleY(.94)}50%{transform:translateX(0) scaleY(1.04)}100%{transform:translateX(6px) scaleY(.97)}}
+@keyframes flora-nod{0%{transform:rotate(-1.6deg) translateY(0)}100%{transform:rotate(1.6deg) translateY(3px)}}
+@keyframes flora-corner-breathe{0%{transform:rotate(-3deg) scale(1)}50%{transform:rotate(.8deg) scale(1.04)}100%{transform:rotate(3deg) scale(1.015)}}
+@keyframes flora-lamp-swing{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+@keyframes flora-lamp-glow{from{opacity:.25}to{opacity:.95}}
+@keyframes flora-glint{0%,55%,100%{opacity:0;transform:scale(.5)}72%{opacity:1;transform:scale(1.4)}}
+@keyframes flora-sprig{from{rotate:-7deg}to{rotate:8deg}}
+@keyframes flora-drift{0%{transform:translate(0,0) rotate(0);opacity:0}12%{opacity:.8}50%{transform:translate(38px,-46px) rotate(calc(var(--r)*.6))}88%{opacity:.75}100%{transform:translate(-22px,-110px) rotate(var(--r));opacity:0}}
 @media (prefers-reduced-motion:no-preference){
- .flora-navbar-art{animation:flora-nod 5.5s ease-in-out infinite alternate}
- .flora-live .flora-sway{animation:flora-sway 7s ease-in-out infinite alternate}
- .flora-live.flora-divider--03 .flora-sway{animation-duration:8.5s;animation-delay:-3s}
- .flora-live.flora-divider--01 .flora-divider-art,.flora-live.flora-divider--03 .flora-divider-art{transform-origin:50% 40%;animation:flora-breathe 4.8s ease-in-out infinite alternate}
+ .flora-live .flora-navbar-art{animation:flora-nod 2.8s ease-in-out infinite alternate}
+ .flora-live .flora-navbar-vine{animation:flora-ripple 3.2s ease-in-out infinite alternate}
+ .flora-live .flora-vine{animation:flora-ripple 3.4s ease-in-out infinite alternate}
+ .flora-live .flora-sway>.flora-divider-art{animation:flora-sway 3.6s ease-in-out infinite alternate;transform-origin:50% 12%}
+ .flora-live.flora-divider--02 .flora-sway{animation:flora-sway 4s ease-in-out infinite alternate}
+ .flora-live.flora-divider--02 .flora-sway>.flora-divider-art{animation:flora-breathe 2.4s ease-in-out infinite alternate;transform-origin:50% 20%}
  .flora-live .flora-lamp{animation:flora-lamp-swing var(--t) ease-in-out var(--d) infinite alternate}
- .flora-live .flora-lamp-glow{animation:flora-lamp-glow 2.6s ease-in-out var(--d) infinite alternate}
- .flora-live .flora-glint{animation:flora-glint 4s ease-in-out var(--d) infinite}
- .flora-live.flora-corner{animation:flora-corner-breathe 6s ease-in-out infinite alternate}
- .flora-live.flora-corner--top-right,.flora-live.flora-corner--bottom-left{animation-delay:-2.5s;animation-duration:7.2s}
- .landing-experience #heroCreate::before,.landing-experience #heroTry::before,.landing-experience .cta-banner [data-create]::before,.landing-experience .template-grid [data-template]::before{animation:flora-sprig 4.2s ease-in-out infinite alternate}
- .landing-experience #heroTry::before{animation-delay:-1.4s}
- .landing-experience .template-grid .world-card:nth-child(2n) [data-template]::before{animation-delay:-2.1s}
+ .flora-live .flora-lamp-glow{animation:flora-lamp-glow 1.6s ease-in-out var(--d) infinite alternate}
+ .flora-live .flora-glint{animation:flora-glint 2.4s ease-in-out var(--d) infinite}
+ .flora-live.flora-corner{animation:flora-corner-breathe 3.2s ease-in-out infinite alternate}
+ .flora-live.flora-corner--top-right,.flora-live.flora-corner--bottom-left{animation-delay:-1.4s;animation-duration:3.8s}
+ .flora-live.flora-corner--bottom-right{animation-delay:-.7s;animation-duration:2.9s}
+ .flora-live .flora-drift{animation:flora-drift var(--t) linear var(--d) infinite}
+ .landing-experience #heroCreate::before,.landing-experience #heroTry::before,.landing-experience .cta-banner [data-create]::before,.landing-experience .template-grid [data-template]::before,.landing-experience .price-card .btn::before{animation:flora-sprig 2.2s ease-in-out infinite alternate}
+ .landing-experience #heroTry::before,.landing-experience .template-grid .world-card:nth-child(2n) [data-template]::before{animation-delay:-1.1s}
 }
 html[data-ambient-motion=paused] [data-decor],html[data-ambient-motion=paused] [data-decor] *,.atmosphere-hidden [data-decor],.atmosphere-hidden [data-decor] *,html[data-ambient-motion=paused] .landing-experience #app .btn::before,html[data-ambient-motion=paused] .landing-experience [data-template]::before{animation-play-state:paused!important}
 
 @media (max-width:800px){
- .flora-navbar{top:calc(100% - 7px);width:min(250px,64vw)}
- .flora-divider--02{padding-bottom:16px}
- .price-card>.flora-corner{--out:-12px}
- .step>.flora-corner{--out:-12px}
- .landing-experience #heroCreate::before{width:40px;height:26px;right:-10px;top:-15px}
- .landing-experience .template-grid [data-template]::before{width:30px;height:12px}
+ .flora-navbar{top:calc(100% - 10px);height:20px}
+ .flora-navbar-art{width:min(230px,62vw);margin-left:calc(min(230px,62vw)/-2)}
+ .landing-experience #heroCreate::before{width:42px;height:27px;right:-12px;top:-16px}
+ .landing-experience .template-grid [data-template]::before{width:38px;height:15px}
+ .price-card>.flora-corner,.step>.flora-corner{--out:-16px}
 }
-/* Phones: keep only the lightest accents. */
 @media (max-width:480px){
- .step>.flora-corner,.flora-glint{display:none}
- .cta-banner>.flora-corner{--size:76px;--out:-10px}
- .flora-lamp-glow{display:none}
+ .step>.flora-corner{--size:72px;--out:-12px}
+ .cta-banner>.flora-corner{--size:70px;--out:-10px}
+ .flora-glint,.flora-lamp-glow{display:none}
+ .flora-float .flora-drift:nth-child(n+5){display:none}
 }

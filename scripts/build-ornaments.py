@@ -145,3 +145,29 @@ c.save('navbar-garland')
 
 # Hanging lamp layer for the romantic and royal dividers.
 Canvas(lantern.width, lantern.height).put(lantern, lantern.width / 2, lantern.height / 2).save('lamp-pendant', pad=0, max_w=96)
+
+# ---- Full-width seam vines: a continuous band laid across the whole screen
+# under each divider, so no section boundary is left bare. Each mixes
+# different pieces, flips and scales so the eye never catches a repeat.
+def vine(name, pieces, width=2600, height=190, overlap=.62):
+    c = Canvas(width, height)
+    x, i = 0, 0
+    while x < width + 200:
+        art, scale, rot, dy = pieces[i % len(pieces)]
+        art = tf(art, scale, rot, flip=i % 2 == 1)
+        c.put(art, x + art.width / 2, height / 2 + dy)
+        x += art.width * overlap
+        i += 1
+    c.save(name)
+
+vine('seam-vine-01', [(sprig, .8, 0, 0), (white_sprig, .9, -6, -10), (sprig, .74, 4, 8), (pink_sprig, .86, 0, 6), (bell_tip, .6, -72, -4)])
+vine('seam-vine-02', [(pink_sprig, .9, 0, 4), (sprig, .78, 0, 0), (festoon_left, .48, -10, -2), (white_sprig, .86, 6, 6), (bell_tip, .62, -80, -8)])
+vine('seam-vine-03', [(sprig, .8, 0, 4), (jasmine, .6, -18, 0), (white_sprig, .9, 0, -4), (lisianthus, .5, 0, -6), (pink_sprig, .86, 0, 8)])
+
+# Divider 04 — Garden: jewelled festoon arms and bells around a rose.
+c = Canvas(1300, 300)
+for side, f in ((-1, False), (1, True)):
+    c.put(tf(festoon_left, .7, 0, flip=f), 650 + side * 118, 140)
+    c.put(tf(bells, .8, 0, flip=not f), 650 + side * 372, 150)
+c.put(tf(rose_head, .78), 650, 132)
+c.save('divider-floral-04')
