@@ -1,0 +1,110 @@
+
+/* TabrikUZ Motion System — original game-inspired vector art and reduced-motion support */
+:root{--motion-rose:#ff668e;--motion-gold:#ffca69;--motion-purple:#a988ff}
+body{overflow-x:hidden}
+.btn{position:relative;overflow:hidden;isolation:isolate;box-shadow:0 5px 0 rgba(57,25,34,.16),0 14px 26px rgba(91,45,63,.10);border-radius:12px;transform:translateZ(0);transition:transform .18s cubic-bezier(.2,1.8,.4,1),box-shadow .18s,filter .2s}
+.btn::after{content:"";position:absolute;inset:-90% auto -90% -55%;width:35%;transform:rotate(22deg);background:linear-gradient(90deg,transparent,#ffffff7d,transparent);animation:buttonShine 5.5s 1.5s infinite;pointer-events:none}
+.btn:hover{transform:translateY(-3px) scale(1.025);box-shadow:0 8px 0 rgba(57,25,34,.11),0 18px 34px rgba(91,45,63,.17);filter:saturate(1.15)}
+.btn:active{transform:translateY(3px) scale(.975);box-shadow:0 1px 0 rgba(57,25,34,.12)}
+.btn:focus-visible,.chip:focus-visible{outline:3px solid #fa9aaf;outline-offset:3px}
+.btn-dark{background:linear-gradient(165deg,#634052 0%,#38232f 60%,#251c28 100%);border:1px solid #8f6270}
+.btn-rose{background:linear-gradient(160deg,#ff84a4,#d84d76);border:1px solid #ffc7d4}
+.hero{background:radial-gradient(ellipse at 73% 45%,#ffe5dd 0,transparent 48%),radial-gradient(ellipse at 13% 85%,#eee2ff 0,transparent 35%),linear-gradient(135deg,#fff9f7,#faf0e9)}
+.hero-copy>*{animation:sceneRise .75s both cubic-bezier(.14,.8,.25,1)}
+.hero-copy>*:nth-child(2){animation-delay:.12s}.hero-copy>*:nth-child(3){animation-delay:.26s}.hero-copy>*:nth-child(4){animation-delay:.38s}.hero-copy>*:nth-child(5){animation-delay:.5s}
+.hero-visual{isolation:isolate;perspective:900px}
+.hero-card{animation:heroFloating 6.5s ease-in-out infinite;transform-origin:center}
+.hero-circle{animation:haloBreath 7s ease-in-out infinite;box-shadow:inset -50px -40px 90px #e8b6ae,0 0 90px #ffc5da66}
+.floating-note{animation:floatNote 5s ease-in-out infinite}.note-2{animation-delay:-2s}
+.hero-gift{position:absolute;z-index:4;right:3%;bottom:8%;width:135px;filter:drop-shadow(0 18px 20px #ac6a9260);animation:floatNote 4.5s ease-in-out infinite;transform-origin:bottom center}
+.hero-gift svg,.game-art svg{display:block;width:100%;height:100%}
+.game-art{width:155px;height:155px;position:relative;margin:5px auto 8px;filter:drop-shadow(0 13px 13px #815e6240);animation:artBob 3.8s ease-in-out infinite}
+.game-art--small{width:77px;height:77px;margin:0 auto}
+.game-art--large{width:min(270px,70vw);height:min(270px,70vw)}
+.game-art .flame{transform-origin:center bottom;animation:candleFlicker .8s ease-in-out infinite alternate}
+.game-art .float-item{animation:artBob 3s ease-in-out infinite;transform-origin:center}
+.game-art .twinkle{transform-origin:center;animation:twinkle 2s ease-in-out infinite}
+.game-art .twinkle:nth-child(odd){animation-delay:.7s}
+.game-art .gift-lid{transform-origin:50% 55%;animation:giftHover 3s ease-in-out infinite}
+.game-art--opened .gift-lid{animation:giftOpen .9s cubic-bezier(.2,.9,.3,1) forwards}
+.template-card{position:relative;transform-style:preserve-3d;transition:transform .3s cubic-bezier(.2,1.5,.3,1),box-shadow .3s}
+.template-card:hover{transform:translateY(-10px) rotate(-.7deg);box-shadow:0 26px 55px #7d526137}
+.template-card:after{content:"";position:absolute;pointer-events:none;inset:0;background:linear-gradient(120deg,transparent 24%,#ffffff80 45%,transparent 67%);transform:translateX(-140%);transition:transform .9s}
+.template-card:hover:after{transform:translateX(140%)}
+.template-art{isolation:isolate}
+.template-art .scene-dots,.preview-page .scene-dots,.invite-public .scene-dots{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.motion-dot{position:absolute;width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 12px currentColor;opacity:.24;animation:drift var(--speed,7s) ease-in-out infinite alternate}
+.motion-dot:nth-child(odd){border-radius:1px;transform:rotate(45deg)}
+.decor-corner{position:absolute;width:120px;pointer-events:none;color:currentColor;opacity:.56;filter:drop-shadow(0 0 8px #ffffff80)}
+.decor-corner svg{width:100%;height:auto;animation:decorSwing 8s ease-in-out infinite}
+.decor-corner.tl{top:-11px;left:-5px}.decor-corner.tr{top:-11px;right:-5px;transform:scaleX(-1)}.decor-corner.bl{bottom:-8px;left:-3px;transform:scaleY(-1)}.decor-corner.br{bottom:-8px;right:-5px;transform:scale(-1)}
+.preview-page,.invite-public{isolation:isolate;box-shadow:0 18px 55px #66505b2b,inset 0 0 0 1px #ffffffa8;transition:box-shadow .25s}
+.preview-page{animation:sceneRise .65s ease both}
+.preview-page>*:not(.decor-corner):not(.scene-dots),.invite-public>*:not(.decor-corner):not(.scene-dots){z-index:1;position:relative}
+.preview-page .hero-emoji{font-size:0;line-height:0}
+.preview-page h2{animation:headlineBloom 1s .1s both cubic-bezier(.1,1.5,.25,1)}
+.preview-page p,.preview-page .meta,.preview-page small{animation:sceneRise .75s .35s both}
+.invite-public h1{animation:headlineBloom 1.15s .2s both}
+.invite-public .symbol{font-size:0}
+.invite-public>p{animation:sceneRise .8s .5s both}
+.invite-public .event-meta,.invite-public .countdown,.invite-public .invite-actions{animation:sceneRise .85s .75s both}
+.invite-public{background-image:radial-gradient(circle at 50% 15%,#ffffffc4,transparent 64%);background-blend-mode:overlay}
+.invite-public.tone-midnight{background-color:#1c203c;color:#f6e6cd}
+.invite-public.tone-gold{background-color:#fbf1dc;color:#84613e}
+.invite-public.tone-sage{background-color:#e5efdb;color:#4b7050}
+.invite-public.tone-ocean{background-color:#d5eef1;color:#345e76}
+.tone-rose .motion-dot,.tone-peach .motion-dot{color:#d76592}
+.tone-sage .motion-dot{color:#78ac65}
+.tone-gold .motion-dot{color:#bb8f36}
+.tone-midnight .motion-dot{color:#ffe196;opacity:.5}
+.tone-lavender .motion-dot{color:#9360c4}
+.tone-ocean .motion-dot{color:#5f9ba2}
+.scene-panel{margin-top:18px;padding:16px;background:#ffffffc7;border:1px solid #f6e8ed;border-radius:18px;box-shadow:0 15px 35px #5d36401c;backdrop-filter:blur(9px)}
+.scene-panel h4{font:600 15px "DM Sans",sans-serif;margin:0 0 15px}
+.scene-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.scene-option{border:1px solid #ebd4da;background:white;color:#6e505e;border-radius:10px;padding:11px 5px;font-size:12px;cursor:pointer;transition:.2s}
+.scene-option.selected{border-color:#e77e9a;background:#ffeaf1;box-shadow:0 0 0 2px #ffc5d655}
+.scene-option:hover{transform:scale(1.03)}
+.premium-ribbon{position:absolute;top:15px;right:15px;z-index:4;padding:7px 12px;border-radius:20px;background:linear-gradient(110deg,#fff1b2,#ffc468);box-shadow:0 4px 14px #7e583c30;color:#7b491f;font:800 10px "DM Sans";letter-spacing:.5px}
+.mini-invite .game-art{width:75px;height:75px;margin:0 auto}
+.motion-overlay{position:fixed;inset:0;z-index:160;display:flex;justify-content:center;align-items:center;padding:20px;background:radial-gradient(circle at 50% 40%,#ffe5e2 0,#cba0ad 55%,#49354e 100%);overflow:hidden;color:white}
+.motion-overlay .motion-bg{position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,#ffffffa3,transparent 32%),radial-gradient(circle at 75% 80%,#ffd17e99,transparent 33%);animation:haloBreath 6s ease-in-out infinite}
+.motion-intro{max-width:520px;width:100%;z-index:2;text-align:center;animation:headlineBloom .7s both}
+.motion-intro h2{font-size:clamp(36px,6vw,58px);line-height:1.17;text-shadow:0 8px 40px #603c5e75}
+.motion-intro p{line-height:1.8;color:#fff4f6}
+.motion-intro .game-art{filter:drop-shadow(0 25px 45px #6031529f)}
+.motion-intro .btn{background:linear-gradient(180deg,#ffe9a3,#ffbd62);color:#614324;font-size:15px;border:1px solid #fff1bd;padding:18px 35px;box-shadow:0 6px 0 #bb7544,0 18px 35px #4a284d59}
+.motion-intro small{display:block;margin-top:19px;color:#fff9;letter-spacing:.06em}
+.motion-overlay.exit{animation:introExit .7s ease forwards;pointer-events:none}
+.confetti-piece{position:fixed;pointer-events:none;z-index:170;width:var(--sz,9px);height:var(--sz,9px);left:var(--x,50vw);top:-40px;background:var(--c,#ff90b4);border-radius:2px;animation:confettiFall var(--dur,3s) var(--delay,0s) ease-in forwards}
+.scene-controls{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.scene-controls button{background:#ffffffbd;border:1px solid #ffffffaa;border-radius:30px;padding:11px 17px;font-weight:700;color:#724957;box-shadow:0 5px 15px #7946531d}
+.scene-controls button:hover{transform:scale(1.045)}
+.admin-table{width:100%;border-collapse:collapse;font-size:13px;background:white;border-radius:12px;overflow:hidden}
+.admin-table td,.admin-table th{text-align:left;padding:13px;border-bottom:1px solid #f1e6e6}
+.admin-table th{font-weight:800;background:#fff0f3;color:#77505e}
+.admin-table select{padding:8px;border:1px solid #e0ccd2;border-radius:7px}
+.admin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.admin-card{background:white;border:1px solid #eadbe0;border-radius:12px;padding:21px}
+.admin-card strong{display:block;font-size:30px}
+.admin-card span{color:#8c7780;font-size:12px}
+.tabstrip{display:flex;gap:9px;overflow:auto;margin:23px 0}
+.tabstrip button{padding:11px 18px;border:1px solid #ead8dc;border-radius:12px;background:white;font-weight:700}
+.tabstrip button.active{background:#3b293a;color:white}
+@keyframes sceneRise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes headlineBloom{0%{opacity:0;transform:translateY(25px) scale(.83);filter:blur(7px)}75%{opacity:1;filter:blur(0)}100%{transform:translateY(0) scale(1)}}
+@keyframes giftHover{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px) rotate(2deg)}}
+@keyframes giftOpen{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(-60px) rotate(18deg)}}
+@keyframes twinkle{0%,100%{opacity:.55;transform:scale(.65)}50%{opacity:1;transform:scale(1.35)}}
+@keyframes candleFlicker{from{transform:scale(.82) rotate(-9deg)}to{transform:scale(1.1) rotate(9deg)}}
+@keyframes artBob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
+@keyframes haloBreath{0%,100%{transform:scale(1);opacity:.86}50%{transform:scale(1.08);opacity:1}}
+@keyframes heroFloating{0%,100%{transform:rotate(7deg) translateY(0)}50%{transform:rotate(4deg) translateY(-14px)}}
+@keyframes floatNote{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+@keyframes decorSwing{0%,100%{transform:rotate(0)}50%{transform:rotate(4deg)}}
+@keyframes drift{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(12px,-25px) rotate(75deg)}}
+@keyframes buttonShine{0%,65%{left:-65%}100%{left:180%}}
+@keyframes introExit{to{opacity:0;transform:scale(1.11)}}
+@keyframes confettiFall{to{transform:translate3d(var(--dx,30px),110vh,0) rotate(720deg);opacity:0}}
+@media(max-width:770px){.scene-options{grid-template-columns:repeat(2,1fr)}.admin-grid{grid-template-columns:repeat(2,1fr)}.hero-gift{width:100px;right:2%;bottom:5%}.game-art{width:125px;height:125px}.scene-controls button{font-size:11px}.admin-table{display:block;overflow:auto}.preview-page .decor-corner{width:82px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.motion-overlay{background:#57465b}}
