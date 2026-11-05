@@ -8,17 +8,22 @@ const config={
  midnight:{kind:'midnight',image:'midnight-palace',poster:'midnight-palace',variant:'midnight'},
  ivory:{kind:'wedding',image:'wedding-clean',poster:'wedding-palace',variant:'ivory'},
  champagne:{kind:'wedding',image:'wedding-clean',poster:'wedding-palace',variant:'champagne'},
- garden:{kind:'garden',image:'garden-palace',poster:'garden-palace',variant:'garden'}
+ garden:{kind:'garden',image:'garden-palace',poster:'garden-palace',variant:'garden'},
+ velvet:{kind:'love',image:'love-letter',poster:'love-letter',variant:'love'},
+ ocean:{kind:'achievement',image:'achievement-garden',poster:'achievement-garden',variant:'achievement'},
+ noir:{kind:'gala',image:'gala-ballroom',poster:'gala-ballroom',variant:'gala'},
+ blue:{kind:'celebration',image:'aqua-celebration',poster:'aqua-celebration',variant:'celebration'}
 };
 const flames={birthday:[[43.3,40.5,3.9],[50.4,38.4,4.6],[57.3,40.6,3.9]],midnight:[[40,39.5,3.9],[50,38.2,4.5],[60,39.5,3.9]]};
-function layers(t,live){const c=config[t.id];if(!c)return null;const alt=c.kind==='wedding'||c.kind==='garden'?'Gullar va uzuklar bilan bezatilgan to‘y sahnasi':'Tort va sovg‘alar bilan bezatilgan tug‘ilgan kun sahnasi';
+function layers(t,live){const c=config[t.id];if(!c)return null;const alt={love:'Atirgullar orasidagi samimiy maktub',achievement:'Bitiruv qalpog‘i va diplom bilan yutuqlar bog‘i',gala:'Yorqin chiroqli oltin gala sahnasi',celebration:'Moviy bog‘dagi sovg‘alar bilan bayram'}[c.kind]||(c.kind==='wedding'||c.kind==='garden'?'Gullar va uzuklar bilan bezatilgan to‘y sahnasi':'Tort va sovg‘alar bilan bezatilgan tug‘ilgan kun sahnasi');
  if(!live)return '<img class="scene-poster variant-'+c.variant+'" src="/assets/scenes/'+c.poster+'.webp" alt="'+alt+'" loading="lazy">';
  const fire=(flames[c.kind]||[]).map(([x,y,h],i)=>'<i class="candle-flame" style="--x:'+x+'%;--y:'+y+'%;--h:'+h+'%;--phase:-'+i*.23+'s"><b></b></i>').join('');
- const balloons=c.kind==='birthday'?'<div class="balloon-anchor balloon-left"><img src="/assets/scenes/balloon-bouquet.webp" alt="" draggable="false"></div><div class="balloon-anchor balloon-right"><img src="/assets/scenes/balloon-bouquet.webp" alt="" draggable="false"></div>':'';
- const rings=c.kind==='wedding'?'<div class="floating-rings"><img src="/assets/scenes/wedding-rings.webp" alt="" draggable="false"></div>':'';
+ const balloons=c.kind==='birthday'?'<div class="balloon-anchor balloon-left"><img src="/assets/scenes/balloon-bouquet.webp" alt="" loading="lazy" decoding="async" draggable="false"></div><div class="balloon-anchor balloon-right"><img src="/assets/scenes/balloon-bouquet.webp" alt="" loading="lazy" decoding="async" draggable="false"></div>':'';
+ const rings=c.kind==='wedding'?'<div class="floating-rings"><img src="/assets/scenes/wedding-rings.webp" alt="" loading="lazy" decoding="async" draggable="false"></div>':'';
+ const extras=c.kind==='love'?'<div class="scene-hearts" aria-hidden="true"><i></i><i></i><i></i></div>':c.kind==='gala'?'<div class="scene-spotlights" aria-hidden="true"><i></i><i></i></div>':'';
  const motes=Array.from({length:18},(_,i)=>'<i class="scene-mote" style="--x:'+((i*37+7)%96)+'%;--y:'+((i*29+19)%94)+'%;--delay:-'+i*.7+'s;--duration:'+(6+i%5)+'s"></i>').join('');
  const orbit=Array.from({length:10},(_,i)=>'<i style="--angle:'+i*36+'deg;--ox:'+(50+48*Math.cos(i*Math.PI/5))+'%;--oy:'+(50+46*Math.sin(i*Math.PI/5))+'%;--delay:-'+i*.8+'s"></i>').join('');
- return '<div class="scene-art variant-'+c.variant+'" data-scene-art="'+c.kind+'" data-motion="running" role="img" aria-label="'+alt+'"><div class="motion-camera"><img class="scene-background" src="/assets/scenes/'+c.image+'.webp" alt="" draggable="false">'+balloons+rings+'<div class="scene-fire" aria-hidden="true">'+fire+'</div><div class="scene-orbit" aria-hidden="true">'+orbit+'</div><div class="scene-motes" aria-hidden="true">'+motes+'</div></div></div>';
+ return '<div class="scene-art variant-'+c.variant+'" data-scene-art="'+c.kind+'" data-motion="running" role="img" aria-label="'+alt+'"><div class="motion-camera"><img class="scene-background" src="/assets/scenes/'+c.image+'.webp" alt="" loading="lazy" decoding="async" draggable="false">'+balloons+rings+extras+'<div class="scene-fire" aria-hidden="true">'+fire+'</div><div class="scene-orbit" aria-hidden="true">'+orbit+'</div><div class="scene-motes" aria-hidden="true">'+motes+'</div></div></div>';
 }
 window.TabrikSceneArt={config,layers};
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');

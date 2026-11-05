@@ -32,3 +32,8 @@ test('Reduced motion, offscreen pause and observer cleanup work after redraw',()
  env.intersect([{target:art,isIntersecting:true}]);assert.equal(art.classList.contains('motion-offscreen'),false);
  art.isConnected=false;env.nodes.length=0;env.mutate();assert.deepEqual(env.unobserved,[art]);
 });
+test('All twelve catalog designs have live scene artwork, including love and event designs',()=>{
+ const {api}=boot();const ids=['rose','lilac','gold','midnight','ivory','garden','velvet','ocean','noir','peach','blue','champagne'];
+ for(const id of ids){const html=api.layers({id},true);assert.ok(html,id+' needs live artwork');assert.match(html,/data-scene-art=/);assert.doesNotMatch(html,/dotlottie/)}
+ assert.match(api.layers({id:'velvet'},true),/scene-hearts/);assert.match(api.layers({id:'noir'},true),/scene-spotlights/);
+});
