@@ -1,0 +1,42 @@
+/* Restore the moonlit palace and warm lanterns, with a lighter veil and crisp sprites. */
+html[data-theme=night] body[data-surface]{background:#101831!important;color:#f3e8da}
+html[data-theme=night] .atmosphere-backdrop:before{background-image:url('/assets/backgrounds/studio-night.webp')!important;opacity:1!important;filter:brightness(1.08) saturate(.88)}
+html[data-theme=night] .atmosphere-veil{background:linear-gradient(90deg,#10162b36,#14203a12)!important}
+html[data-theme=night] .celebration-hero:before{background-image:url('/assets/backgrounds/celebration-palace.webp')!important;opacity:.9!important;filter:brightness(.78) saturate(.8)}
+html[data-theme=night] .celebration-hero:after{background:linear-gradient(90deg,#10182e88,#121c3344 40%,#10193222),linear-gradient(0deg,#10183166,transparent 45%)!important}
+html[data-theme=night] .night-sky{display:block!important;position:absolute;inset:0;z-index:0;overflow:hidden;background:linear-gradient(#08132b8c,#17244266 55%,#15203b22 85%,transparent),url('/assets/scenes/midnight-palace.webp') 70% 12%/cover no-repeat!important}
+html[data-theme=night] .night-sky:after{display:none!important}
+html[data-theme=night] .night-moon{display:block!important;position:absolute;left:43%;top:12px;width:clamp(120px,16vw,230px);aspect-ratio:1;filter:drop-shadow(0 0 14px #a9d7ff66)}
+html[data-theme=night] .night-moon .moon-face{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:brightness(1.08)}
+html[data-theme=night] .moon-wisp{width:180%;left:-150%;opacity:.5;filter:brightness(.8) sepia(.1) hue-rotate(175deg)}
+html[data-theme=night] .night-stars img{width:var(--s);height:var(--s);object-fit:contain;filter:drop-shadow(0 0 3px #dfe8ff88)}
+html[data-theme=night] .night-veil{opacity:.72!important}
+html[data-theme=night] .night-lantern{display:block;z-index:27;top:87px;width:clamp(48px,6.4vw,98px)}
+html[data-theme=night] .night-lantern-glow{width:280%;opacity:.7;background:radial-gradient(circle,#ffe1a04d,#eac77a18 42%,transparent 70%)}
+html[data-theme=night] .firefly{width:24px;height:24px;filter:drop-shadow(0 0 4px #e4ff8c);object-fit:contain}
+html[data-theme=night] .celebration-copy h1{color:#fff0cf!important;text-shadow:0 2px 18px #09132966}
+html[data-theme=night] .celebration-copy h1 em{background:linear-gradient(110deg,#f7dda3,#dfbddb 75%)!important;background-clip:text!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important}
+html[data-theme=night] .celebration-copy p,html[data-theme=night] .celebration-perks,html[data-theme=night] .explore-link{color:#e0d7e7!important}
+html[data-theme=night] .page-head{background:linear-gradient(90deg,#101a3166,#18233a22)!important}
+html[data-theme=night] .page-head h1,html[data-theme=night] .service-hero h1{color:#fff0d8!important;text-shadow:0 2px 12px #09132955}
+html[data-theme=night] .page-head p,html[data-theme=night] .page-head .eyebrow{color:#d5c3dd!important}
+html[data-theme=night] .atmosphere-orbit{opacity:.12!important}
+html[data-theme=night] .landing-experience #collections,html[data-theme=night] .landing-experience #how,html[data-theme=night] .landing-experience #pricing,html[data-theme=night] .landing-experience #pricing+.section{background:#111b30a6!important}
+html[data-theme=night] .service-hero{background:linear-gradient(90deg,#111d36dc,#17264099),url('/assets/backgrounds/studio-night.webp') center/cover!important}
+html[data-theme=night] .showcase-scene,html[data-theme=night] .peek-card{filter:brightness(1.06)!important}
+html[data-theme=night] .service-form{background:linear-gradient(130deg,#fff9eff2,#f3edf4ed),url('/assets/backgrounds/ivory-silk.webp') center/cover!important;color:#62476d}
+html[data-theme=night] .service-field{color:#775583!important}
+html[data-theme=night] .service-input-wrap{background:linear-gradient(110deg,#fffdf6,#f8edf4)!important;border-color:#d8bed4!important}
+html[data-theme=night] .service-input-wrap.input-color-1{background:linear-gradient(110deg,#fffdf6,#eee8f8)!important}
+html[data-theme=night] .service-input-wrap.input-color-2{background:linear-gradient(110deg,#fffdf6,#f7eddb)!important}
+html[data-theme=night] .service-input-wrap.input-color-3{background:linear-gradient(110deg,#fffdf6,#e9f0e4)!important}
+html[data-theme=night] .service-field .service-input-wrap>input,html[data-theme=night] .service-field .service-input-wrap>select,html[data-theme=night] .service-field .service-input-wrap>textarea{color:#654970!important}
+html[data-theme=night] .service-field input::placeholder,html[data-theme=night] .service-field textarea::placeholder{color:#a58daa}
+html[data-theme=night] .service-consent{color:#8c7192!important}
+html[data-theme=night] .service-quote{color:#9e7747!important}
+html[data-theme=night] .order-facts dd{color:#705577!important}
+html[data-theme=night] .night-layer:not(.night-layer-v2){pointer-events:none!important}
+.atmosphere-hidden .night-layer *,html[data-ambient-motion=paused] .night-layer *{animation-play-state:paused!important}
+body[data-surface=invite]>.night-layer{display:none!important}
+@media(max-width:800px){html[data-theme=night] .night-moon{left:auto;right:12%;top:15px;width:110px}html[data-theme=night] .night-lantern{top:62px;width:48px}.night-lantern--left{left:-8px}.night-lantern--right{right:-8px}html[data-theme=night] .firefly{width:19px;height:19px}}
+@media(prefers-reduced-motion:reduce){.night-layer *,.night-sky *{animation:none!important}}

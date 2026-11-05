@@ -21,9 +21,104 @@ toggle.innerHTML='<svg viewBox="0 0 48 48" aria-hidden="true"><g class="tt-sun">
 const actions=document.querySelector('.header-actions');
 if(actions)actions.prepend(toggle);
 
-// Clear separate sprites and soft additive halos; never put a dark canvas over forms.
-const layer=document.createElement('div');layer.className='night-layer night-layer-v2';layer.setAttribute('aria-hidden','true');
-layer.innerHTML='<div class="night-orbit-moon"><i></i><img src="/assets/ornaments/moon-crisp.webp" alt=""></div>'+Array.from({length:3},(_,i)=>'<img class="night-clear-cloud" src="/assets/backgrounds/day-cloud.webp" alt="" style="--cloud:'+i+';--d:-'+i*11+'s">').join('')+Array.from({length:coarse?5:9},(_,i)=>'<div class="night-firefly-node" style="--x:'+((i*31+7)%93)+'%;--y:'+(20+(i*23)%68)+'%;--d:-'+i*1.9+'s;--t:'+(14+i%4*3)+'s"><i class="firefly-lightspill"></i><img src="/assets/ornaments/firefly-premium.webp" alt=""></div>').join('');document.body.append(layer);
-function apply(next,save){theme=next;root.dataset.theme=next;const night=next==='night';toggle.setAttribute('aria-pressed',String(night));toggle.setAttribute('aria-label',night?'Kunduzgi rejimga o‘tish':'Tungi rejimga o‘tish');toggle.querySelector('.tt-label').textContent=night?'Tun':'Kun';document.querySelector('meta[name=theme-color]')?.setAttribute('content',night?'#0b1930':'#fcf9f5');if(save)try{localStorage.setItem(KEY,next)}catch{}}
-toggle.addEventListener('click',()=>apply(theme==='night'?'day':'night',true));document.addEventListener('visibilitychange',()=>layer.classList.toggle('night-paused',document.hidden));apply(theme,false);
+// ---- Lanterns fixed to the window, fireflies, the dark veil.
+const lanterns=['left','right'].map(side=>{
+ const el=document.createElement('div');el.className='night-lantern night-lantern--'+side;el.setAttribute('aria-hidden','true');
+ el.innerHTML='<img src="/assets/backgrounds/day-lantern.webp" alt="" decoding="async"><i class="night-lantern-glow"></i>';
+ return el;
+});
+const veil=document.createElement('canvas');veil.className='night-veil';veil.setAttribute('aria-hidden','true');
+const ctx=veil.getContext('2d');
+const flyCount=lite?4:coarse?5:9;
+const flies=Array.from({length:flyCount},(_,i)=>{
+ const el=document.createElement('img');el.className='firefly';el.src='/assets/ornaments/firefly-premium.webp';el.alt='';el.decoding='async';
+ return {el,x:Math.random()*innerWidth,y:120+Math.random()*(innerHeight-160),a:Math.random()*6.28,s:.35+Math.random()*.55,
+  r:(coarse?36:46)+Math.random()*(coarse?20:28),ph:Math.random()*6.28,f:1.2+Math.random()*1.6};
+});
+const layer=document.createElement('div');layer.className='night-layer';layer.setAttribute('aria-hidden','true');
+layer.append(veil,...lanterns,...flies.map(f=>f.el));
+
+// ---- Moon, stars and drifting wisps in the hero's sky.
+function sky(){
+ const hero=document.querySelector('.celebration-hero');
+ if(!hero||hero.querySelector(':scope > .night-sky'))return;
+ const s=document.createElement('div');s.className='night-sky';s.setAttribute('aria-hidden','true');
+ s.innerHTML='<div class="night-stars">'+Array.from({length:26},(_,i)=>'<img src="/assets/ornaments/night-star.webp" alt="" style="--x:'+((i*37+11)%97)+'%;--y:'+((i*53+7)%62)+'%;--d:-'+(i*.37).toFixed(2)+'s;--s:'+(10+(i%4)*6)+'px">').join('')+'</div>'+
+  '<div class="night-moon"><img class="moon-face" src="/assets/ornaments/moon-crisp.webp" alt="">'+
+  Array.from({length:3},(_,i)=>'<img class="moon-wisp" src="/assets/backgrounds/day-cloud.webp" alt="" style="--d:-'+(i*7)+'s;--t:'+(20+i*4)+'s;--y:'+(18+i*26)+'%">').join('')+'</div>';
+ hero.prepend(s);
+}
+
+const pointer={x:-999,y:-999,on:0};
+addEventListener('pointermove',e=>{pointer.x=e.clientX;pointer.y=e.clientY;pointer.on=1},{passive:true});
+addEventListener('pointerdown',e=>{pointer.x=e.clientX;pointer.y=e.clientY;pointer.on=1},{passive:true});
+document.addEventListener('pointerleave',()=>pointer.on=0);
+
+let scale=lite?.25:coarse?.34:.5,raf=0,last=0,skip=0;
+function resize(){veil.width=Math.ceil(innerWidth*scale);veil.height=Math.ceil(innerHeight*scale)}
+addEventListener('resize',resize,{passive:true});
+
+function light(x,y,r,warm,strength=1){
+ const k=scale,g=ctx.createRadialGradient(x*k,y*k,0,x*k,y*k,r*k);
+ g.addColorStop(0,'rgba(0,0,0,'+strength+')');g.addColorStop(.5,'rgba(0,0,0,'+(strength*.82)+')');g.addColorStop(1,'rgba(0,0,0,0)');
+ ctx.fillStyle=g;ctx.beginPath();ctx.arc(x*k,y*k,r*k,0,6.283);ctx.fill();
+ warmth.push([x,y,r,warm,strength]);
+}
+let warmth=[];
+function frame(t){
+ raf=0;
+ if(root.dataset.theme!=='night'||document.hidden||root.dataset.ambientMotion==='paused'||document.body.dataset.surface==='invite')return;
+ // Low-power devices redraw the veil at half rate; motion stays smooth enough.
+ if(lite&&(skip^=1)){raf=requestAnimationFrame(frame);return}
+ const now=t/1000,dt=Math.min(.05,(t-last)/1000||.016);last=t;
+ const w=innerWidth,h=innerHeight;
+ ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,veil.width,veil.height);
+ ctx.fillStyle='rgba(5,12,40,0.30)';ctx.fillRect(0,0,veil.width,veil.height);
+ ctx.globalCompositeOperation='destination-out';warmth=[];
+ // Lanterns: the light sits on the glass, wherever the swing has carried it.
+ for(const l of lanterns){const r=l.querySelector('img').getBoundingClientRect();if(r.width)light(r.left+r.width/2,r.top+r.height*.55,Math.max(250,Math.min(w,h)*.48),'255,196,110',1)}
+ // The moon lights the sky around it while the hero is on screen.
+ const moon=document.querySelector('.night-moon .moon-face');
+ if(moon){const r=moon.getBoundingClientRect();if(r.bottom>0&&r.top<h)light(r.left+r.width/2,r.top+r.height/2,r.width*1.3,'170,205,255',.9)}
+ // Fireflies wander on smooth curves and stay inside the window.
+ for(const f of flies){
+  if(!reduced.matches){
+   f.a+=Math.sin(now*f.f+f.ph)*.03+(Math.random()-.5)*.08;
+   f.x+=Math.cos(f.a)*f.s*60*dt;f.y+=Math.sin(f.a)*f.s*60*dt;
+   if(f.x<30||f.x>w-30)f.a=Math.PI-f.a;if(f.y<100||f.y>h-30)f.a=-f.a;
+   f.x=Math.max(30,Math.min(w-30,f.x));f.y=Math.max(100,Math.min(h-30,f.y));
+  }
+  const glow=.62+.38*Math.sin(now*f.f*2+f.ph);
+  f.el.style.transform='translate('+f.x.toFixed(1)+'px,'+f.y.toFixed(1)+'px)';f.el.style.opacity=(.45+.55*glow).toFixed(2);
+  light(f.x,f.y,f.r*(.8+.2*glow),'210,255,150',.7+.3*glow);
+ }
+ if(pointer.on)light(pointer.x,pointer.y,coarse?170:230,'255,226,170',.97);
+ // A faint warm tint where each light falls.
+ ctx.globalCompositeOperation='lighter';
+ for(const [x,y,r,c,s] of warmth){const k=scale,g=ctx.createRadialGradient(x*k,y*k,0,x*k,y*k,r*k);g.addColorStop(0,'rgba('+c+','+(.10*s)+')');g.addColorStop(1,'rgba('+c+',0)');ctx.fillStyle=g;ctx.fillRect((x-r)*k,(y-r)*k,2*r*k,2*r*k)}
+ if(!reduced.matches||pointer.on)raf=requestAnimationFrame(frame);
+}
+function start(){if(!raf&&root.dataset.theme==='night'&&!document.hidden)raf=requestAnimationFrame(frame)}
+document.addEventListener('visibilitychange',start);
+reduced.addEventListener('change',start);
+addEventListener('pointermove',()=>{if(reduced.matches)start()},{passive:true});
+addEventListener('scroll',()=>{if(reduced.matches)start()},{passive:true});
+
+function apply(next,save){
+ theme=next;root.dataset.theme=next;
+ const night=next==='night';
+ toggle.setAttribute('aria-pressed',String(night));
+ toggle.setAttribute('aria-label',night?'Kunduzgi rejimga o‘tish':'Tungi rejimga o‘tish');
+ toggle.querySelector('.tt-label').textContent=night?'Tun':'Kun';
+ document.querySelector('meta[name=theme-color]')?.setAttribute('content',night?'#120d26':'#fcf9f5');
+ if(save)try{localStorage.setItem(KEY,next)}catch{}
+ if(night){if(!layer.isConnected){document.body.append(layer);resize()}sky();start()}
+}
+toggle.addEventListener('click',()=>{root.classList.add('theme-switching');apply(theme==='night'?'day':'night',true);setTimeout(()=>root.classList.remove('theme-switching'),700)});
+
+// The hero is re-rendered on navigation; put the sky back when it returns.
+const app=document.getElementById('app');
+if(app)new MutationObserver(()=>{if(root.dataset.theme==='night')sky()}).observe(app,{childList:true});
+new MutationObserver(()=>{if(root.dataset.ambientMotion==='running')start()}).observe(root,{attributes:true,attributeFilter:['data-ambient-motion']});
+apply(theme,false);
 })();
