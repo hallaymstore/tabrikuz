@@ -2,7 +2,7 @@
 (()=>{'use strict';
 const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const CDN={
-cake:'https://assets-v2.lottiefiles.com/a/58226234-116b-11ee-ab8f-7fc04f6f5d62/C6EdhjtFTc.lottie',
+cake:'https://assets-v2.lottiefiles.com/a/4b3ac7e4-118b-11ee-8cc2-23e407cabb5f/ZafQHP4FVZ.lottie',
 gift:'https://assets-v2.lottiefiles.com/a/0614ec90-1185-11ee-b4b6-876b7a2465e4/KjvdxT5q7l.lottie',
 balloons:'https://assets-v2.lottiefiles.com/a/231cef0c-117d-11ee-a568-f7ed32fa7b1a/ENRt9SGLyK.lottie',
 surprise:'https://assets-v2.lottiefiles.com/a/c739d2b0-117a-11ee-954c-b70cbe118fac/xTk2AwHM1h.lottie',
