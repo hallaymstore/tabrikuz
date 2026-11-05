@@ -1,0 +1,57 @@
+/* Purpose-built floral assets v6: clean layout, unique silhouettes, attached pendants. */
+.edge-bouquet.floral-corners{position:absolute!important;inset:0!important;z-index:4;pointer-events:none;overflow:visible;border-radius:inherit}
+.edge-bouquet.floral-corners .floral-corner{position:absolute!important;display:block!important;width:96px!important;height:91px!important;object-fit:contain!important;opacity:.94!important;filter:drop-shadow(0 3px 3px #795b7223)!important;animation:corner-breathe 7s ease-in-out infinite alternate!important;transform-origin:12% 90%}
+.floral-corners .corner-left{left:-19px!important;bottom:-16px!important;top:auto!important;right:auto!important;transform:rotate(-4deg)!important}
+.floral-corners .corner-right{right:-21px!important;top:-20px!important;left:auto!important;bottom:auto!important;transform:rotate(182deg)!important;animation-delay:-3s!important}
+.floral-corners>.edge-flower,.floral-corners>.edge-vine,.floral-corners>.edge-leaf,.floral-corners>.edge-light{display:none!important}
+.floral-corners .floating-leaf{position:absolute;top:18px;right:24px;width:7px;height:13px;border-radius:95% 5% 95% 5%;background:linear-gradient(135deg,#8eaa82,#bed1aa);transform-origin:10% 90%;animation:floral-leaf-wave 3.8s ease-in-out infinite alternate}
+.floral-corners .leaf-1{top:auto;bottom:16px;right:auto;left:32px;rotate:27deg;animation-delay:-1.8s}
+.floral-corners .leaf-2{top:39px;right:8px;rotate:-24deg;animation-delay:-2.6s}
+.template-info>.floral-corners .floral-corner{width:64px!important;height:67px!important;opacity:.87!important}
+.template-info>.floral-corners .corner-left{left:-10px!important;bottom:-11px!important}
+.template-info>.floral-corners .corner-right{right:-9px!important;top:-10px!important}
+.price-card>.floral-corners .floral-corner,.step>.floral-corners .floral-corner{width:86px!important;height:87px!important}
+.cta-banner>.floral-corners .floral-corner{width:112px!important;height:110px!important}
+.custom-nav-garland{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.custom-nav-garland .navbar-floral-art{position:absolute;left:0;bottom:-25px;width:100%;min-width:850px;height:76px;object-fit:fill;opacity:.92;filter:drop-shadow(0 2px 2px #866a7022)}
+body[data-surface] .site-header>.nav-garland,body[data-surface] .site-header>.nav-bouquet{display:none!important}
+.botanical-separator{position:relative!important;display:block!important;isolation:isolate;width:100%!important;height:128px!important;margin:-64px 0!important;z-index:8!important;overflow:hidden!important;pointer-events:none!important;contain:layout style}
+.botanical-separator .festoon-row,.botanical-separator .separator-floral-bed,.botanical-separator .festoon-tile,.botanical-separator .separator-branch{display:none!important}
+.floral-seam-row{position:absolute;top:6px;left:50%;display:flex;width:max-content;height:112px;transform:translateX(-50%)}
+.floral-seam-tile{position:relative;width:720px;height:112px;flex:0 0 720px}
+.floral-seam-tile .seam-art{position:absolute;top:0;left:0;width:720px;height:112px;object-fit:fill;filter:drop-shadow(0 2px 3px #9e7b8b22)}
+.seam-pendant{position:absolute;left:var(--x);top:var(--anchor);width:18px;height:calc(var(--drop) + 17px);transform-origin:50% 0;animation:pendant-swing 5.2s ease-in-out infinite alternate;animation-delay:var(--delay)}
+.pendant-string{display:block;position:absolute;top:0;left:8px;width:1px;height:var(--drop);background:linear-gradient(#b69d68,#dbc18e)}
+.pendant-gem{position:absolute;top:var(--drop);left:3px;width:11px;height:15px;border:1px solid #d4b575;border-radius:48% 48% 64% 64%;background:radial-gradient(circle at 35% 25%,#ffffe9,#ffe29d 60%,#d8a75e);box-shadow:inset 0 1px 2px #fff9,0 2px 5px #b38c5e44;animation:pendant-flicker 3s ease-in-out infinite alternate;animation-delay:var(--delay)}
+.pendant-crystal .pendant-gem{clip-path:polygon(50% 0,100% 34%,80% 75%,50% 100%,20% 75%,0 34%);border-radius:0;background:linear-gradient(130deg,#fffaf5,#e9d1f7 45%,#d8afe4)}
+.pendant-glow{position:absolute;top:calc(var(--drop) - 5px);left:-3px;width:24px;height:25px;border-radius:50%;background:radial-gradient(circle,#ffecab99,transparent 70%);animation:pendant-flicker 3.2s ease-in-out infinite alternate;animation-delay:var(--delay)}
+.separator-nav{position:absolute!important;left:0;right:0;bottom:-49px;height:87px!important;margin:0!important;z-index:1}
+.separator-nav .floral-seam-row{top:-6px;scale:1 .72;transform-origin:50% 0}
+.separator-footer{position:absolute!important;left:0;right:0;top:-55px;height:116px!important;margin:0!important}
+.separator-footer .floral-seam-row{top:5px}
+.botanical-separator+section{scroll-margin-top:135px}
+body[data-surface] .site-header{border-bottom:0!important;box-shadow:none!important}
+.landing-experience .occasion-strip,.landing-experience #app>section{border-top:0!important;border-bottom:0!important}
+.ornament-button:before{background-image:url('/assets/ornaments/corner-2.svg')!important;background-size:contain!important;background-position:center!important;width:35px!important;height:32px!important;top:-10px!important;right:-11px!important;filter:drop-shadow(0 1px 2px #836f7722)!important}
+.world-card:nth-child(3n) .ornament-button:before{background-image:url('/assets/ornaments/corner-1.svg')!important}
+.price-card .ornament-button:before{background-image:url('/assets/ornaments/corner-3.svg')!important}
+@keyframes corner-breathe{from{translate:0 0}to{translate:0 -2px}}
+@keyframes floral-leaf-wave{from{transform:rotate(-8deg) scaleX(.85)}to{transform:rotate(10deg) scaleX(1)}}
+@keyframes pendant-swing{from{transform:rotate(-3.2deg)}to{transform:rotate(3.2deg)}}
+@keyframes pendant-flicker{from{opacity:.63}to{opacity:1}}
+html[data-ambient-motion=paused] .botanical-separator *,html[data-ambient-motion=paused] .floral-corners *,html[data-ambient-motion=paused] .ornament-button:before,.atmosphere-hidden .botanical-separator *,.atmosphere-hidden .floral-corners *,.ornaments-offscreen .floral-corners *{animation-play-state:paused!important}
+@media(max-width:800px){
+.botanical-separator{height:94px!important;margin:-47px 0!important}
+.floral-seam-row{top:0;scale:.76;transform-origin:50% 0}
+.separator-nav{height:66px!important;bottom:-37px}
+.separator-nav .floral-seam-row{scale:.68 .58}
+.separator-footer{height:88px!important;top:-40px}
+.separator-footer .floral-seam-row{scale:.75}
+.custom-nav-garland .navbar-floral-art{height:45px;min-width:600px;left:50%;transform:translateX(-50%);bottom:-18px}
+.template-info>.floral-corners .floral-corner{width:51px!important;height:52px!important}
+.price-card>.floral-corners .floral-corner,.step>.floral-corners .floral-corner{width:63px!important;height:65px!important}
+.cta-banner>.floral-corners .floral-corner{width:70px!important;height:73px!important}
+.floral-corners .corner-right{right:-8px!important;top:-9px!important}
+.floral-corners .corner-left{left:-8px!important;bottom:-8px!important}
+}
+@media(prefers-reduced-motion:reduce){.floral-corners *, .seam-pendant,.seam-pendant *,.ornament-button:before{animation:none!important}}
