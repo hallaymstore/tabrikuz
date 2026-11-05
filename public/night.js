@@ -67,7 +67,8 @@ function light(x,y,r,warm,strength=1){
 let warmth=[];
 function frame(t){
  raf=0;
- if(root.dataset.theme!=='night'||document.hidden||root.dataset.ambientMotion==='paused'||document.body.dataset.surface==='invite')return;
+ if(root.dataset.theme!=='night'||document.hidden||document.body.dataset.surface==='invite')return;
+ const paused=reduced.matches||root.dataset.ambientMotion==='paused';
  // Low-power devices redraw the veil at half rate; motion stays smooth enough.
  if(lite&&(skip^=1)){raf=requestAnimationFrame(frame);return}
  const now=t/1000,dt=Math.min(.05,(t-last)/1000||.016);last=t;
@@ -82,7 +83,7 @@ function frame(t){
  if(moon){const r=moon.getBoundingClientRect();if(r.bottom>0&&r.top<h)light(r.left+r.width/2,r.top+r.height/2,r.width*1.3,'170,205,255',.9)}
  // Fireflies wander on smooth curves and stay inside the window.
  for(const f of flies){
-  if(!reduced.matches){
+  if(!paused){
    f.a+=Math.sin(now*f.f+f.ph)*.03+(Math.random()-.5)*.08;
    f.x+=Math.cos(f.a)*f.s*60*dt;f.y+=Math.sin(f.a)*f.s*60*dt;
    if(f.x<30||f.x>w-30)f.a=Math.PI-f.a;if(f.y<100||f.y>h-30)f.a=-f.a;
@@ -96,7 +97,7 @@ function frame(t){
  // A faint warm tint where each light falls.
  ctx.globalCompositeOperation='lighter';
  for(const [x,y,r,c,s] of warmth){const k=scale,g=ctx.createRadialGradient(x*k,y*k,0,x*k,y*k,r*k);g.addColorStop(0,'rgba('+c+','+(.10*s)+')');g.addColorStop(1,'rgba('+c+',0)');ctx.fillStyle=g;ctx.fillRect((x-r)*k,(y-r)*k,2*r*k,2*r*k)}
- if(!reduced.matches||pointer.on)raf=requestAnimationFrame(frame);
+ if(!paused)raf=requestAnimationFrame(frame);
 }
 function start(){if(!raf&&root.dataset.theme==='night'&&!document.hidden)raf=requestAnimationFrame(frame)}
 document.addEventListener('visibilitychange',start);
@@ -119,6 +120,6 @@ toggle.addEventListener('click',()=>{root.classList.add('theme-switching');apply
 // The hero is re-rendered on navigation; put the sky back when it returns.
 const app=document.getElementById('app');
 if(app)new MutationObserver(()=>{if(root.dataset.theme==='night')sky()}).observe(app,{childList:true});
-new MutationObserver(()=>{if(root.dataset.ambientMotion==='running')start()}).observe(root,{attributes:true,attributeFilter:['data-ambient-motion']});
+new MutationObserver(start).observe(root,{attributes:true,attributeFilter:['data-ambient-motion']});
 apply(theme,false);
 })();
