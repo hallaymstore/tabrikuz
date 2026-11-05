@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "check": "node --check server.js && node --check public/app.js && node --check public/game.js && node --check public/admin-panel.js && node --check public/scene-art.js && node --check public/studio-v2.js && node --check public/atmosphere.js && node --check public/form-decor.js && node --check public/ornaments.js",
+    "check": "node --check server.js && node --check public/app.js && node --check public/game.js && node --check public/admin-panel.js && node --check public/scene-art.js && node --check public/studio-v2.js && node --check public/atmosphere.js && node --check public/form-decor.js && node --check public/decor.js",
     "test": "npm run check && node --test tests/*.test.mjs",
     "postinstall": "node scripts/fetch-assets.mjs"
   },

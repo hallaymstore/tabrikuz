@@ -1,0 +1,122 @@
+/* TabrikUZ floral decoration system (pairs with decor.js).
+   Flowers are WebP illustrations from /assets/ornaments/; this file only
+   places, scales and animates them. Ornaments never take pointer events and
+   stay outside text, buttons and badges. */
+
+:root{
+ --flora-gold:#c9a66b;
+ --flora-shadow:drop-shadow(0 3px 4px #7c5a6c1f);
+}
+[data-decor],[data-decor] *{pointer-events:none!important;user-select:none}
+[data-decor] img{display:block;max-width:none;-webkit-user-drag:none}
+
+/* ---------- Surfaces kept from the previous theme ---------- */
+body[data-surface] .site-header{position:sticky;overflow:visible!important;border-bottom:0!important;box-shadow:0 1px 0 #e4cfae66,0 6px 18px #b48ca20d!important;background:linear-gradient(90deg,#fffaf0f5,#fff9f1ec 35%,#f4e9f0ed 75%,#fff9eff5)!important}
+.site-header .header-inner{position:relative;z-index:2}
+.landing-experience #app>section{border-top:0!important;border-bottom:0!important}
+.landing-experience .template-grid .world-card .template-info{overflow:visible!important}
+.template-info .caption-floral{display:none}
+.landing-experience .price-card,.landing-experience .step{position:relative;isolation:isolate;background:linear-gradient(110deg,#fffaf3ef 15%,#fffaf3d9 65%,#fff9f199),url('/assets/backgrounds/caption-garden.webp') center/cover!important;border:1px solid #ead7d1!important;box-shadow:0 12px 30px #ad839317!important;border-radius:24px}
+.landing-experience .price-card.featured{background:linear-gradient(110deg,#faedf8e8,#fff8edd9),url('/assets/backgrounds/caption-garden.webp') center/cover!important}
+.price-card>*,.step>*{position:relative;z-index:2}
+.footer{position:relative}
+
+/* Button skins */
+body[data-surface] .header-actions .btn-dark,.landing-experience #app .btn-dark,.landing-experience #app .btn-rose,.landing-experience .template-grid .world-card [data-template]{background:radial-gradient(ellipse at 15% 0,#fff5,transparent 45%),linear-gradient(120deg,#9d4f88,#704182 65%,#573c7a)!important;color:#fffaf0!important;border:1px solid #bc8da6!important;box-shadow:inset 0 1px 0 #ffffff55,0 4px 0 #573963,0 8px 18px #6c42762b!important;transition:filter .2s,box-shadow .2s}
+.landing-experience .world-card[data-card-kind=wedding] [data-template]{background:radial-gradient(ellipse at 15% 0,#fff5,transparent 45%),linear-gradient(120deg,#b88a47,#8f642d)!important;border-color:#d6b273!important;box-shadow:inset 0 1px 0 #fff5,0 4px 0 #755224,0 8px 18px #8e632627!important}
+.landing-experience .world-card[data-card-kind=event] [data-template]{background:radial-gradient(ellipse at 15% 0,#fff5,transparent 45%),linear-gradient(120deg,#468b8f,#346275)!important;border-color:#80b6b8!important;box-shadow:inset 0 1px 0 #fff5,0 4px 0 #294d61,0 8px 18px #35697627!important}
+body[data-surface] .header-actions .btn-ghost,.landing-experience #app .btn-outline{background:radial-gradient(ellipse at 10% 0,#fff8,transparent 50%),linear-gradient(120deg,#f5deb6,#e4bf83)!important;border:1px solid #d6af74!important;color:#66483e!important;box-shadow:inset 0 1px 0 #fff9,0 3px 0 #c8a275,0 7px 14px #b68a4c20!important}
+.landing-experience #app .btn:hover:not(:disabled),body[data-surface] .header-actions .btn:hover{filter:brightness(1.07)}
+.landing-experience #app .btn:active:not(:disabled){translate:0 2px}
+.landing-experience #app .btn:disabled{filter:saturate(.5);opacity:.72}
+.landing-experience #app .btn:focus-visible,.header-actions .btn:focus-visible{outline:3px solid #b389b8;outline-offset:4px}
+
+/* ---------- Navbar: a slim garland hanging from the header's lower edge ---------- */
+.flora-navbar{position:absolute;left:50%;top:calc(100% - 9px);z-index:1;width:clamp(240px,30vw,440px);transform:translateX(-50%)}
+.flora-navbar-art{width:100%;height:auto;filter:var(--flora-shadow);transform-origin:50% 0;opacity:.96}
+
+/* ---------- Section dividers, anchored to the section boundary ----------
+   --w is the art width and --h its height (from each WebP's aspect ratio). */
+.flora-divider{position:relative;z-index:3;display:block;width:var(--w);max-width:calc(100% - 32px);margin-inline:auto}
+.flora-sway{position:relative;transform-origin:50% 8%}
+.flora-divider-art{width:100%;height:auto;filter:var(--flora-shadow)}
+.flora-divider--01{--w:min(700px,86vw);--h:calc(var(--w)*.159)}
+.flora-divider--02{--w:min(820px,94vw);--h:calc(var(--w)*.2285)}
+.flora-divider--03{--w:min(760px,92vw);--h:calc(var(--w)*.175)}
+/* 01 opens the gallery below the hero's marquee strip: it sits in flow and
+   the gallery's top padding tucks up under it. */
+.flora-divider--01{margin-top:clamp(14px,2.2vw,26px);margin-bottom:calc(-1*clamp(34px,5.4vw,66px))}
+/* 02 and 03 straddle the seam: zero layout height, art centred on the line,
+   and both neighbours get enough padding to keep their content clear. */
+.flora-divider--02,.flora-divider--03{height:0}
+.flora-divider--02>.flora-sway,.flora-divider--03>.flora-sway{translate:0 -50%}
+.landing-experience #app>section:has(+.flora-divider--02),.landing-experience #app>section:has(+.flora-divider--03){padding-bottom:max(var(--seam-pad),90px)}
+.landing-experience #app>.flora-divider--02+section,.landing-experience #app>.flora-divider--03+section{padding-top:max(var(--seam-pad),90px)}
+#app{--seam-pad:calc(min(820px,94vw)*.2285/2 + 30px)}
+@media (max-width:800px){
+ .landing-experience #app>section:has(+.flora-divider--02),.landing-experience #app>section:has(+.flora-divider--03){padding-bottom:var(--seam-pad)}
+ .landing-experience #app>.flora-divider--02+section,.landing-experience #app>.flora-divider--03+section{padding-top:var(--seam-pad)}
+}
+
+/* Lamps hang from fixed points on divider 02; each pivots at its chain top. */
+.flora-lamp{position:absolute;left:calc(var(--x)*100%);top:calc(var(--y)*100%);width:clamp(9px,1.6vw,15px);margin-left:calc(clamp(9px,1.6vw,15px)/-2);transform-origin:50% 0}
+.flora-lamp-art{width:100%;height:auto;filter:drop-shadow(0 2px 2px #8b6a3a33)}
+.flora-lamp-glow{position:absolute;left:-90%;right:-90%;top:42%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#ffe7a8aa,#ffd88a33 45%,transparent 70%);opacity:.55;mix-blend-mode:screen}
+.flora-glint{position:absolute;left:calc(var(--x)*100%);top:calc(var(--y)*100%);width:clamp(5px,.8vw,8px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,#fff 0 22%,#fff6e0aa 40%,transparent 72%);opacity:0}
+
+/* ---------- Corner bouquets: hug the card outline, never its content ---------- */
+.flora-host{position:relative;overflow:visible!important}
+.flora-corner{position:absolute;z-index:3;width:var(--size,96px)}
+.flora-corner-art{width:100%;height:auto;filter:var(--flora-shadow)}
+.flora-corner--top-left{left:var(--out,-18px);top:var(--out,-18px);transform-origin:0 0}
+.flora-corner--top-right{right:var(--out,-18px);top:var(--out,-18px);transform-origin:100% 0}
+.flora-corner--bottom-left{left:var(--out,-18px);bottom:var(--out,-18px);transform-origin:0 100%}
+.flora-corner--bottom-right{right:var(--out,-18px);bottom:var(--out,-18px);transform-origin:100% 100%}
+.cta-banner>.flora-corner{--size:clamp(92px,13vw,170px);--out:clamp(-26px,-1.8vw,-12px)}
+.cta-banner>.flora-corner--bottom-right{--size:clamp(96px,14vw,184px)}
+.price-card>.flora-corner{--size:clamp(84px,9vw,118px);--out:-20px}
+.step>.flora-corner{--size:clamp(74px,7.4vw,98px);--out:-22px}
+
+/* ---------- Button sprigs: small, on the outer edge ---------- */
+.landing-experience #heroCreate,.landing-experience #heroTry,.landing-experience .cta-banner [data-create],.landing-experience .template-grid [data-template]{position:relative;overflow:visible!important}
+.landing-experience #heroCreate::before,.landing-experience #heroTry::before,.landing-experience .cta-banner [data-create]::before,.landing-experience .template-grid [data-template]::before{content:'';position:absolute;z-index:3;pointer-events:none;background:center/contain no-repeat;transition:transform .45s cubic-bezier(.3,.7,.3,1);filter:drop-shadow(0 1px 1px #5b3f5222)}
+.landing-experience #heroCreate::before{background-image:url('/assets/ornaments/button-floral-01.webp');width:50px;height:32px;right:-16px;top:-19px;transform-origin:20% 90%}
+.landing-experience #heroTry::before{background-image:url('/assets/ornaments/button-floral-02.webp');width:46px;height:18px;left:-12px;bottom:-11px;transform-origin:90% 50%}
+.landing-experience .cta-banner [data-create]::before{background-image:url('/assets/ornaments/button-floral-01.webp');width:54px;height:34px;left:-20px;top:-20px;transform:scaleX(-1);transform-origin:80% 90%}
+.landing-experience .template-grid [data-template]::before{background-image:url('/assets/ornaments/button-floral-02.webp');width:44px;height:17px;right:-8px;top:-12px;transform-origin:10% 60%}
+.landing-experience #heroCreate:hover::before,.landing-experience .template-grid [data-template]:hover::before{transform:rotate(-5deg) translateY(-1px)}
+.landing-experience #heroTry:hover::before{transform:rotate(4deg)}
+.landing-experience .cta-banner [data-create]:hover::before{transform:scaleX(-1) rotate(-5deg) translateY(-1px)}
+
+/* ---------- Motion: transform/opacity only, and only while on screen ---------- */
+@keyframes flora-nod{from{transform:rotate(-.7deg)}to{transform:rotate(.7deg)}}
+@keyframes flora-corner-breathe{from{transform:rotate(-1.2deg)}to{transform:rotate(1deg) translateY(-1px)}}
+@keyframes flora-lamp-swing{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+@keyframes flora-lamp-glow{from{opacity:.35}to{opacity:.8}}
+@keyframes flora-glint{0%,72%,100%{opacity:0;transform:scale(.6)}84%{opacity:.95;transform:scale(1.15)}}
+@media (prefers-reduced-motion:no-preference){
+ .flora-navbar-art{animation:flora-nod 9s ease-in-out infinite alternate}
+ .flora-live .flora-sway{animation:flora-nod 10s ease-in-out infinite alternate}
+ .flora-live.flora-divider--03 .flora-sway{animation-duration:12s;animation-delay:-4s}
+ .flora-live .flora-lamp{animation:flora-lamp-swing var(--t) ease-in-out var(--d) infinite alternate}
+ .flora-live .flora-lamp-glow{animation:flora-lamp-glow 3.4s ease-in-out var(--d) infinite alternate}
+ .flora-live .flora-glint{animation:flora-glint 5.5s ease-in-out var(--d) infinite}
+ .flora-live.flora-corner{animation:flora-corner-breathe 8s ease-in-out infinite alternate}
+ .flora-live.flora-corner--top-right,.flora-live.flora-corner--bottom-left{animation-delay:-3.5s;animation-duration:9.5s}
+}
+html[data-ambient-motion=paused] [data-decor],html[data-ambient-motion=paused] [data-decor] *,.atmosphere-hidden [data-decor],.atmosphere-hidden [data-decor] *{animation-play-state:paused!important}
+
+@media (max-width:800px){
+ .flora-navbar{top:calc(100% - 7px);width:min(250px,64vw)}
+ .flora-divider--02{padding-bottom:16px}
+ .price-card>.flora-corner{--out:-12px}
+ .step>.flora-corner{--out:-12px}
+ .landing-experience #heroCreate::before{width:40px;height:26px;right:-10px;top:-15px}
+ .landing-experience .template-grid [data-template]::before{width:30px;height:12px}
+}
+/* Phones: keep only the lightest accents. */
+@media (max-width:480px){
+ .step>.flora-corner,.flora-glint{display:none}
+ .cta-banner>.flora-corner{--size:76px;--out:-10px}
+ .flora-lamp-glow{display:none}
+}
