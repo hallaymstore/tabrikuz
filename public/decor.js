@@ -24,8 +24,15 @@ const SEAMS=[['#collections','01','02'],['#how','02','01'],['#pricing','04','03'
 const CORNERS=[
  ['.showcase-scene','top-left','top-left'],
  ['.showcase-scene','bottom-right','bottom-right'],
+ // Template cards: a different bouquet on each of the four corners.
  ['.template-grid .world-card:nth-child(odd)','top-left','top-left'],
+ ['.template-grid .world-card:nth-child(odd)','top-right','top-right'],
+ ['.template-grid .world-card:nth-child(odd)','bottom-left','bottom-left'],
+ ['.template-grid .world-card:nth-child(odd)','bottom-right','bottom-right'],
  ['.template-grid .world-card:nth-child(even)','top-left','top-right',true],
+ ['.template-grid .world-card:nth-child(even)','top-right','top-left',true],
+ ['.template-grid .world-card:nth-child(even)','bottom-left','bottom-right',true],
+ ['.template-grid .world-card:nth-child(even)','bottom-right','bottom-left',true],
  ['.steps > .step:first-child','bottom-left','bottom-left'],
  ['.steps > .step:last-child','bottom-right','bottom-right'],
  ['.price-grid > .price-card:first-child','top-right','top-left',true],
@@ -43,6 +50,13 @@ const CORNERS=[
 ];
 // Vine-wrapped pillars flank these sections on wide screens; narrower
 // screens get a climbing vine on each edge instead.
+// Cabinet (dashboard) and studio (create/edit) pages.
+const PAGE_CORNERS=[
+ ['#app > .page-head','top-left','top-left'],['#app > .page-head','top-right','top-right'],
+ ['.empty','top-left','top-left'],['.empty','top-right','top-right'],['.empty','bottom-left','bottom-left'],['.empty','bottom-right','bottom-right'],
+ ['.dashboard-card','top-right','top-right'],['.dashboard-card','bottom-left','bottom-left'],
+ ['.workspace-grid > .panel','top-right','top-right'],['.workspace-grid > .panel','bottom-left','bottom-left']
+];
 const PILLARS=['#collections','#pricing'];
 const CLIMBERS=['#collections','#how','#pricing'];
 
@@ -165,6 +179,18 @@ function header(){
  el.append(band,g);head.append(el);track(el);
 }
 
+// Vines climbing both edges of the window on the cabinet and studio pages.
+function edges(){
+ if(document.querySelector('.flora-edges'))return;
+ const el=node('div','flora-edges');
+ for(const side of ['left','right']){
+  const col=document.createElement('div');col.className='flora-edge flora-edge--'+side;
+  for(let k=0;k<3;k++){const w=rig('wrap-vine-0'+((k+(side==='right'?1:0))%3+1),k*4+(side==='right'?2:0));col.append(w)}
+  el.append(col);
+ }
+ document.body.append(el);el.classList.add('flora-live');
+}
+
 function footer(){
  const foot=document.querySelector('.footer');
  if(!foot||foot.querySelector(':scope > .flora-divider'))return;
@@ -178,6 +204,13 @@ function modal(){
 
 function sync(){
  untrack();
+ const surface=document.body.dataset.surface;
+ if(surface==='cabinet'||surface==='studio'){
+  const work=app.querySelector(':scope > .workspace'),prev=work?.previousElementSibling;
+  if(work&&prev&&!prev.matches('.flora-divider'))work.before(seam('03','01','section'));
+  PAGE_CORNERS.forEach(([sel,where,art,mirror],i)=>app.querySelectorAll(sel).forEach((host,j)=>corner(host,where,art,mirror,i+j)));
+  return;
+ }
  if(!document.body.classList.contains('landing-experience'))return;
  for(const [sel,kind,vine] of SEAMS){
   const section=app.querySelector(':scope > '+sel);
@@ -202,6 +235,6 @@ new MutationObserver(records=>{
 }).observe(app,{childList:true,subtree:true});
 
 fetch(ART+'rigs.json').then(r=>r.ok?r.json():null).catch(()=>null).then(data=>{
- RIGS=data;header();footer();modal();sync();petals();
+ RIGS=data;header();footer();modal();edges();sync();petals();
 });
 })();

@@ -131,7 +131,8 @@ body[data-surface] .header-actions .btn-ghost,.landing-experience #app .btn-outl
 .flora-corner--bottom-left{left:var(--ox,var(--out,-18px));bottom:var(--oy,var(--out,-18px))}
 .flora-corner--bottom-right{right:var(--ox,var(--out,-18px));bottom:var(--oy,var(--out,-18px))}
 .showcase-scene>.flora-corner{--size:clamp(80px,7.4vw,118px);--out:clamp(-58px,-3.8vw,-30px)}
-.world-card>.flora-corner{--size:clamp(84px,8vw,118px);--out:clamp(-36px,-2.4vw,-22px)}
+.world-card>.flora-corner{--size:clamp(70px,6.6vw,100px);--out:clamp(-42px,-2.9vw,-26px)}
+.world-card>.flora-corner--bottom-left,.world-card>.flora-corner--bottom-right{--out:clamp(-50px,-3.3vw,-30px)}
 .cta-banner>.flora-corner{--size:clamp(84px,12vw,176px);--out:clamp(-34px,-2.2vw,-14px)}
 .price-card>.flora-corner{--size:clamp(88px,9vw,124px);--out:-26px}
 .step>.flora-corner{--size:clamp(80px,7.6vw,104px);--out:-26px}
@@ -173,6 +174,32 @@ body[data-surface] .header-actions .btn-ghost,.landing-experience #app .btn-outl
 .landing-experience #heroCreate:hover::before,.landing-experience .template-grid [data-template]:hover::before,.landing-experience .price-card .btn:hover::before{transform:rotate(-6deg) scale(1.06)}
 .landing-experience #heroTry:hover::before{transform:rotate(6deg) scale(1.06)}
 .landing-experience .cta-banner [data-create]:hover::before{transform:scaleX(-1) rotate(-6deg) scale(1.06)}
+
+/* ---------- Cabinet and studio pages ---------- */
+body[data-surface=cabinet] #app>.page-head,body[data-surface=studio] #app>.page-head{position:relative;padding-bottom:max(var(--seam-pad),70px)!important}
+body[data-surface=cabinet] #app>.flora-divider+.workspace,body[data-surface=studio] #app>.flora-divider+.workspace{padding-top:var(--seam-pad)!important}
+#app>section.page-head>.flora-corner{--size:clamp(84px,8vw,124px);display:none}
+@media (min-width:1200px){#app>section.page-head>.flora-corner{display:block}}
+.empty>.flora-corner{--size:clamp(90px,9vw,130px);--out:-22px}
+.empty{position:relative}
+.dashboard-card>.flora-corner{--size:clamp(70px,6vw,92px);--out:-22px}
+.workspace-grid>.panel>.flora-corner{--size:clamp(84px,7vw,112px);--out:-40px}
+.workspace-grid>.panel{overflow:visible}
+body[data-surface=cabinet] #app .btn-dark{background:radial-gradient(ellipse at 15% 0,#fff5,transparent 45%),linear-gradient(120deg,#9d4f88,#704182 65%,#573c7a)!important;color:#fffaf0!important;border:1px solid #bc8da6!important;box-shadow:inset 0 1px 0 #ffffff55,0 4px 0 #573963,0 8px 18px #6c42762b!important}
+body[data-surface=cabinet] #app .btn-ghost,body[data-surface=cabinet] #app .btn-outline{background:radial-gradient(ellipse at 10% 0,#fff8,transparent 50%),linear-gradient(120deg,#f5deb6,#e4bf83)!important;border:1px solid #d6af74!important;color:#5a3d34!important;box-shadow:inset 0 1px 0 #fff9,0 3px 0 #c8a275,0 7px 14px #b68a4c20!important}
+body[data-surface=cabinet] #app .btn:hover{filter:brightness(1.07)}
+
+/* Vines climbing both window edges on the cabinet and studio pages. */
+.flora-edges{position:fixed;inset:0;z-index:3;display:none}
+body[data-surface=cabinet] .flora-edges,body[data-surface=studio] .flora-edges{display:block}
+/* Only the free margin beside the content shows: --v of the vine's --ew width. */
+.flora-edge{position:absolute;top:64px;bottom:84px;width:var(--ew);display:flex;flex-direction:column;overflow:hidden;--ew:clamp(60px,6.4vw,104px);--v:clamp(14px,calc((100vw - 1240px)/2),72px)}
+.flora-edge>.flora-rig{flex:none;margin-bottom:-12%}
+.flora-edge--left{left:calc(var(--v) - var(--ew))}
+.flora-edge--right{right:calc(var(--v) - var(--ew))}
+.flora-edge--right>.flora-rig{scale:-1 1}
+body[data-surface=studio] .flora-edge{--v:clamp(12px,calc((100vw - 1420px)/2),64px)}
+@media (max-width:800px){.flora-edge{--ew:46px}}
 
 /* ---------- Motion: only small parts move, each about its own pivot ---------- */
 @keyframes flora-leaf{0%{transform:rotate(calc(var(--a)*-1)) scale(.97,1)}55%{transform:rotate(calc(var(--a)*.6)) scale(1,1.03)}100%{transform:rotate(var(--a)) scale(.95,1)}}

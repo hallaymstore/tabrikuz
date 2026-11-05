@@ -1,0 +1,69 @@
+/* Story layers for the birthday worlds (scene-art.js). Transform/opacity only. */
+.scene-art.variant-lilac,.scene-art.variant-gold,.scene-art.variant-peach,.scene-poster.variant-lilac,.scene-poster.variant-gold,.scene-poster.variant-peach{filter:none}
+.scene-art.variant-lilac .scene-background{object-position:50% 100%!important}
+.scene-art.variant-peach .scene-background{object-position:92% 70%!important}
+.scene-art.variant-gold .scene-background{object-position:50% 40%!important}
+.world-layer{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
+.world-layer *{pointer-events:none}
+.world-layer .ti{position:absolute;width:100%;height:100%;left:0;top:0;filter:drop-shadow(0 4px 6px #3c1a4a40)}
+
+/* Shirin bayram */
+.w-popper{width:24%!important;height:auto!important;aspect-ratio:1;top:auto!important;bottom:18%}
+.w-popper-left{left:2%!important}
+.w-popper-right{left:auto!important;right:2%;scale:-1 1}
+.w-rise{position:absolute;left:var(--x);bottom:-14%;width:11%;aspect-ratio:1}
+
+/* Bulutlar mamlakati */
+.world-sky{background:linear-gradient(#c9b2f533,transparent 55%)}
+.w-sun{position:absolute;right:12%;top:8%;width:28%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#fff8dccc,#ffe1a466 45%,transparent 70%)}
+.w-cloud{position:absolute;left:-60%;top:var(--y);width:62%;scale:var(--s);opacity:.92;filter:drop-shadow(0 6px 8px #b48fbf33)}
+.w-bouquet{position:absolute;left:var(--x);bottom:-50%;width:34%;filter:drop-shadow(0 6px 8px #6d3d7a33)}
+.world-sky .w-rise{width:13%}
+
+/* Oltin syurpriz */
+.world-surprise{background:radial-gradient(ellipse at 50% 62%,#ffd77a40,transparent 60%)}
+.w-rays{position:absolute;left:50%;top:60%;width:170%;aspect-ratio:1;translate:-50% -50%;background:repeating-conic-gradient(from 0deg,#ffe7a03a 0 9deg,transparent 9deg 22deg);mask:radial-gradient(circle,#000 18%,transparent 62%);-webkit-mask:radial-gradient(circle,#000 18%,transparent 62%)}
+.w-glow{position:absolute;left:50%;top:62%;width:60%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,#fff3c0aa,#ffcf6b44 40%,transparent 70%)}
+.w-big-gift{position:absolute;left:50%;top:44%;width:46%;aspect-ratio:1;translate:-50% 0}
+.w-big-gift .ti{filter:drop-shadow(0 10px 14px #2b0f3a66)}
+.w-coin{position:absolute;left:50%;top:56%;width:5%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff7d0,#ffd166 45%,#c98a1c);box-shadow:0 0 8px #ffd77a;opacity:0}
+.w-star{border-radius:0;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);background:#fff4c4}
+.w-spark{position:absolute;left:var(--x);top:var(--y);width:3%;aspect-ratio:1;background:#fff;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);opacity:0}
+
+/* Konfetlar olami */
+.world-candy{background:linear-gradient(transparent 55%,#ffd2e033)}
+.w-sweet{position:absolute;aspect-ratio:1}
+.w-sweet.s1{left:5%;bottom:22%;width:28%}
+.w-sweet.s2{left:33%;bottom:30%;width:22%}
+.w-sweet.s3{right:5%;bottom:20%;width:30%}
+.w-sweet.s4{right:31%;bottom:40%;width:19%}
+.w-sweet.s5{left:36%;top:16%;width:22%}
+.w-fall{position:absolute;left:var(--x);top:-12%;width:9%;aspect-ratio:1}
+
+@keyframes w-rise{0%{transform:translateY(0) rotate(-6deg);opacity:0}10%{opacity:1}50%{transform:translateY(-55vh) rotate(6deg)}90%{opacity:1}100%{transform:translateY(-120vh) rotate(-4deg);opacity:0}}
+@keyframes w-cloud{from{transform:translateX(0)}to{transform:translateX(260%)}}
+@keyframes w-bouquet{0%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-90%) rotate(4deg)}100%{transform:translateY(-220%) rotate(-3deg)}}
+@keyframes w-sun{from{transform:scale(.92);opacity:.7}to{transform:scale(1.08);opacity:1}}
+@keyframes w-rays{to{transform:rotate(360deg)}}
+@keyframes w-glow{0%,100%{transform:scale(.9);opacity:.6}50%{transform:scale(1.15);opacity:1}}
+@keyframes w-coin{0%,62%{transform:translate(-50%,-50%) rotate(var(--a)) translateY(0) scale(.2);opacity:0}70%{opacity:1}92%{transform:translate(-50%,-50%) rotate(var(--a)) translateY(calc(var(--r)*-1)) scale(1);opacity:1}100%{transform:translate(-50%,-50%) rotate(var(--a)) translateY(calc(var(--r)*-1.15)) scale(.6);opacity:0}}
+@keyframes w-spark{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:1;transform:scale(1.2) rotate(90deg)}}
+@keyframes w-bounce{0%,100%{transform:translateY(0) scale(1)}40%{transform:translateY(-16%) scale(.96,1.05)}55%{transform:translateY(0) scale(1.08,.92)}70%{transform:translateY(-3%)}}
+@keyframes w-fall{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:1}85%{opacity:1}100%{transform:translateY(130vh) rotate(var(--r));opacity:0}}
+
+@media (prefers-reduced-motion:no-preference){
+ [data-motion=running] .w-rise{animation:w-rise var(--t) linear var(--d) infinite}
+ [data-motion=running] .w-cloud{animation:w-cloud var(--t) linear var(--d) infinite}
+ [data-motion=running] .w-bouquet{animation:w-bouquet var(--t) linear var(--d) infinite}
+ [data-motion=running] .w-sun{animation:w-sun 4s ease-in-out infinite alternate}
+ [data-motion=running] .w-rays{animation:w-rays 18s linear infinite}
+ [data-motion=running] .w-glow{animation:w-glow 3.2s ease-in-out infinite}
+ [data-motion=running] .w-coin{animation:w-coin 3.2s cubic-bezier(.2,.7,.4,1) var(--d) infinite}
+ [data-motion=running] .w-spark{animation:w-spark 1.8s ease-in-out var(--d) infinite}
+ [data-motion=running] .w-sweet{animation:w-bounce 1.8s ease-in-out infinite}
+ [data-motion=running] .w-sweet.s2{animation-delay:-.4s}[data-motion=running] .w-sweet.s3{animation-delay:-.9s}[data-motion=running] .w-sweet.s4{animation-delay:-1.3s}[data-motion=running] .w-sweet.s5{animation-delay:-.6s;animation-duration:2.4s}
+ [data-motion=running] .w-fall{animation:w-fall var(--t) linear var(--d) infinite}
+}
+[data-motion=paused] .world-layer *,.motion-offscreen .world-layer *,.motion-document-hidden .world-layer *,html[data-ambient-motion=paused] .world-layer *{animation-play-state:paused!important}
+/* The icons inside the worlds use the scene's own pause state too. */
+[data-motion=paused] .world-layer .ti *,.motion-offscreen .world-layer .ti *{animation-play-state:paused!important}
