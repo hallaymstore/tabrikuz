@@ -5,7 +5,7 @@ import {readFileSync} from 'node:fs';
 const source=readFileSync(new URL('../public/atmosphere.js',import.meta.url),'utf8');
 function boot({reduced=false,saved=null}={}){
  const events={},attrs={},span={},values={},button={setAttribute:(k,v)=>attrs[k]=v,querySelector:()=>span,addEventListener:(name,fn)=>events[name]=fn},root={dataset:{},style:{setProperty:(k,v)=>values[k]=v},classList:{toggle(){}}};
- const context={document:{documentElement:root,body:{},getElementById:id=>id==='atmosphereToggle'?button:{append(){}},createElement:()=>({style:{},append(){}}),addEventListener(){},querySelectorAll:()=>[]},localStorage:{getItem:()=>saved,setItem:(k,v)=>{saved=v}},matchMedia:()=>({matches:reduced,addEventListener(){}}),MutationObserver:class{observe(){}},IntersectionObserver:class{observe(){}unobserve(){}},requestAnimationFrame:fn=>{fn();return 1}};
+ const context={document:{documentElement:root,body:{},getElementById:id=>id==='atmosphereToggle'?button:{append(){}},createElement:()=>({style:{},append(){},setAttribute(){}}),addEventListener(){},querySelectorAll:()=>[]},localStorage:{getItem:()=>saved,setItem:(k,v)=>{saved=v}},matchMedia:()=>({matches:reduced,addEventListener(){}}),MutationObserver:class{observe(){}},IntersectionObserver:class{observe(){}unobserve(){}},requestAnimationFrame:fn=>{fn();return 1}};
  vm.runInNewContext(source,context);return {root,button,attrs,span,events,saved:()=>saved};
 }
 test('Atmosphere pause persists and restores without affecting greeting scenes',()=>{
