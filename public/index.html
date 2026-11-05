@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#fcf9f5"><meta name="description" content="TabrikUZ — eng go‘zal lahzalar uchun interaktiv taklifnoma va tabriklar. Tug‘ilgan kun, to‘y, sevgi maktubi va tadbirlar uchun premium dizaynlar.">
 <title>TabrikUZ — Lahzalarni unutilmas qiling</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/game.css?v=2"><link rel="stylesheet" href="/lottie.css?v=1"><link rel="stylesheet" href="/studio-v2.css?v=1"><link rel="stylesheet" href="/studio-v2-fix.css?v=1">
 <link rel="stylesheet" href="/worlds.css?v=5">
 <link rel="stylesheet" href="/scene-motion.css?v=4">
@@ -14,18 +14,52 @@
 <link rel="stylesheet" href="/daylight.css?v=2">
 <link rel="stylesheet" href="/form-decor.css?v=1">
 <link rel="stylesheet" href="/card-dreams.css?v=2">
-<link rel="stylesheet" href="/decor.css?v=3">
+<link rel="stylesheet" href="/decor.css?v=4">
 </head>
 <body data-surface="home">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<linearGradient id="lgFront" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8cc6"/><stop offset=".55" stop-color="#e2509e"/><stop offset="1" stop-color="#b23383"/></linearGradient>
+<linearGradient id="lgSide" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b83a86"/><stop offset="1" stop-color="#7d2365"/></linearGradient>
+<linearGradient id="lgLid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc2e0"/><stop offset="1" stop-color="#f06aae"/></linearGradient>
+<linearGradient id="lgGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3c2"/><stop offset=".45" stop-color="#ffd166"/><stop offset="1" stop-color="#c98a1c"/></linearGradient>
+<linearGradient id="lgWord" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c58cff"/><stop offset=".5" stop-color="#9a4fd8"/><stop offset="1" stop-color="#6c2fa8"/></linearGradient>
+<linearGradient id="lgUz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a3"/><stop offset=".5" stop-color="#ffb84d"/><stop offset="1" stop-color="#e0548f"/></linearGradient>
+<linearGradient id="lgShine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<symbol id="lgGift" viewBox="0 0 56 56">
+ <ellipse cx="28" cy="53" rx="22" ry="3" fill="#6b2d63" opacity=".22"/>
+ <path d="M44 25 52 20V46L44 51Z" fill="url(#lgSide)"/>
+ <rect x="8" y="25" width="36" height="26" rx="3" fill="url(#lgFront)"/>
+ <path d="M47 27 51 24.6V36L47 38.4Z" fill="url(#lgGold)" opacity=".85"/>
+ <rect x="22" y="25" width="8" height="26" fill="url(#lgGold)"/>
+ <path d="M5 17 13 12H55L47 17Z" fill="#ffd6ea"/>
+ <path d="M47 17 55 12V20L47 25Z" fill="#c4428a"/>
+ <rect x="5" y="17" width="42" height="9" rx="2.5" fill="url(#lgLid)"/>
+ <rect x="22" y="17" width="8" height="9" fill="url(#lgGold)"/>
+ <path d="M23 17 31 12H38L30 17Z" fill="#ffe7a6"/>
+ <rect x="10" y="28" width="6" height="18" rx="3" fill="#fff" opacity=".35"/>
+ <rect x="7" y="18.5" width="14" height="2.5" rx="1.2" fill="#fff" opacity=".55"/>
+ <g class="logo-bow">
+  <path d="M30 12C22 2 13 5 17 11C19 14 25 13 30 12Z" fill="url(#lgGold)" stroke="#b57716" stroke-width="1"/>
+  <path d="M30 12C38 2 47 5 43 11C41 14 35 13 30 12Z" fill="url(#lgGold)" stroke="#b57716" stroke-width="1"/>
+  <path d="M19 9C21 7 24 8 26 10" fill="none" stroke="#fff6d5" stroke-width="1.2" stroke-linecap="round"/>
+  <circle cx="30" cy="12" r="3.4" fill="#ffcf5c" stroke="#b57716" stroke-width="1"/>
+ </g>
+ <path class="logo-spark s1" d="M51 4 52.2 7.8 56 9 52.2 10.2 51 14 49.8 10.2 46 9 49.8 7.8Z" fill="#fff4c4"/>
+ <path class="logo-spark s2" d="M4 28 4.8 30.2 7 31 4.8 31.8 4 34 3.2 31.8 1 31 3.2 30.2Z" fill="#fff"/>
+</symbol>
+<text id="lgText" x="62" y="44" font-family="'Baloo 2','Fredoka',system-ui,sans-serif" font-weight="800" font-size="40" textLength="156" lengthAdjust="spacingAndGlyphs">tabrik<tspan style="fill:var(--uz)">uz</tspan></text>
+<clipPath id="lgTextClip"><use href="#lgText"/></clipPath>
+<clipPath id="lgTop"><rect x="0" y="0" width="240" height="29"/></clipPath>
+</defs></svg>
 <div class="page-atmosphere" id="pageAtmosphere" aria-hidden="true"><div class="atmosphere-backdrop"></div><div class="atmosphere-veil"></div><div class="atmosphere-rays"></div><div class="atmosphere-orbit"></div></div><button type="button" id="atmosphereToggle" class="atmosphere-toggle" aria-pressed="true" aria-label="Fon animatsiyasini to‘xtatish">✦ <span>Jonli fon</span></button>
 <div id="toast" role="status"></div>
 <header class="site-header"><div class="shell header-inner">
-<a href="/" class="brand" id="brand"><span class="brand-mark">✳</span><span>tabrik<span class="brand-accent">uz</span><small>by HALLAYM</small></span></a>
+<a href="/" class="brand brand-3d" id="brand" aria-label="TabrikUZ bosh sahifa"><svg class="brand-logo" viewBox="0 -2 224 66" role="img" aria-label="TabrikUZ"><g class="logo-gift"><use href="#lgGift" x="0" y="4" width="56" height="56"/></g><g class="logo-word"><use href="#lgText" y="6" style="fill:#3f1653;--uz:#7a2d2a"/><use href="#lgText" y="4.5" style="fill:#5b2378;--uz:#a8442f"/><use href="#lgText" y="3" style="fill:#7a3196;--uz:#cf6a33"/><use href="#lgText" y="1.5" style="fill:#8f3eab;--uz:#e88a3c"/><use href="#lgText" style="fill:#fff;stroke:#fff;stroke-width:6;stroke-linejoin:round;--uz:#fff" class="logo-rim"/><use href="#lgText" style="fill:url(#lgWord);--uz:url(#lgUz)"/><g clip-path="url(#lgTop)"><use href="#lgText" style="fill:#fff;--uz:#fff" opacity=".32"/></g><g clip-path="url(#lgTextClip)"><rect class="logo-shine" x="40" y="0" width="34" height="60" fill="url(#lgShine)" transform="skewX(-18)"/></g></g><text class="logo-tag" x="66" y="61" font-family="DM Sans,sans-serif" font-weight="700" font-size="7.4" letter-spacing="2.8" fill="#a07fb0">BY HALLAYM</text></svg></a>
 <nav class="main-nav"><a href="#collections" data-nav="collections">Shablonlar</a><a href="#how" data-nav="how">Qanday ishlaydi?</a><a href="#pricing" data-nav="pricing">Narxlar</a></nav>
 <div class="header-actions"><button id="accountBtn" class="btn btn-ghost">Kirish</button><button id="headerCreate" class="btn btn-dark">Taklifnoma yaratish <span>↗</span></button></div>
 </div></header>
 <main id="app"></main>
-<footer class="footer"><div class="footer-clouds" aria-hidden="true"><img src="/assets/backgrounds/day-cloud.webp" alt=""><img src="/assets/backgrounds/day-cloud.webp" alt=""></div><div class="shell footer-inner"><div><a href="/" class="brand"><span class="brand-mark">✳</span><span>tabrik<span class="brand-accent">uz</span></span></a><p>Har bir lahza go‘zal xotiraga aylansin.</p></div><div class="footer-links"><a href="#collections">Shablonlar</a><a href="#how">Jarayon</a><a href="#pricing">Tariflar</a><span>© 2026 TabrikUZ · HALLAYM</span></div></div></footer>
+<footer class="footer"><div class="footer-clouds" aria-hidden="true"><img src="/assets/backgrounds/day-cloud.webp" alt=""><img src="/assets/backgrounds/day-cloud.webp" alt=""></div><div class="shell footer-inner"><div><a href="/" class="brand brand-3d" aria-label="TabrikUZ bosh sahifa"><svg class="brand-logo" viewBox="0 -2 224 66" role="img" aria-label="TabrikUZ"><g class="logo-gift"><use href="#lgGift" x="0" y="4" width="56" height="56"/></g><g class="logo-word"><use href="#lgText" y="6" style="fill:#3f1653;--uz:#7a2d2a"/><use href="#lgText" y="4.5" style="fill:#5b2378;--uz:#a8442f"/><use href="#lgText" y="3" style="fill:#7a3196;--uz:#cf6a33"/><use href="#lgText" y="1.5" style="fill:#8f3eab;--uz:#e88a3c"/><use href="#lgText" style="fill:#fff;stroke:#fff;stroke-width:6;stroke-linejoin:round;--uz:#fff" class="logo-rim"/><use href="#lgText" style="fill:url(#lgWord);--uz:url(#lgUz)"/><g clip-path="url(#lgTop)"><use href="#lgText" style="fill:#fff;--uz:#fff" opacity=".32"/></g><g clip-path="url(#lgTextClip)"><rect class="logo-shine" x="40" y="0" width="34" height="60" fill="url(#lgShine)" transform="skewX(-18)"/></g></g></svg></a><p>Har bir lahza go‘zal xotiraga aylansin.</p></div><div class="footer-links"><a href="#collections">Shablonlar</a><a href="#how">Jarayon</a><a href="#pricing">Tariflar</a><span>© 2026 TabrikUZ · HALLAYM</span></div></div></footer>
 <div id="authModal" class="overlay hidden"><div class="modal auth-modal"><button class="modal-close" aria-label="Yopish" id="authClose">×</button><div class="auth-art">✳ <span>Bir lahzadan abadiy xotiragacha.</span></div><div class="auth-content"><div class="eyebrow">TABRIKUZ ACCOUNT</div><h2 id="authHeading">Xush kelibsiz</h2><p id="authDescription">Shaxsiy taklifnomalaringizni boshqaring.</p><form id="authForm"><div id="nameField" class="hidden"><label>Ismingiz</label><input name="name" placeholder="Ismingiz" autocomplete="name"></div><label>Email manzilingiz</label><input type="email" name="email" placeholder="name@example.com" required autocomplete="email"><label>Parol</label><input type="password" name="password" placeholder="Kamida 8 ta belgi" required minlength="8" autocomplete="current-password"><button class="btn btn-dark btn-wide" type="submit" id="authSubmit">Kirish</button></form><button id="toggleAuth" class="link-button">Akkauntingiz yo‘qmi? Ro‘yxatdan o‘tish</button></div></div></div>
-<script src="/admin-panel.js?v=2" defer></script><script src="/atmosphere.js?v=3" defer></script><script src="/scene-art.js?v=3" defer></script><script src="/app.js?v=11" defer></script><script src="/game.js?v=5" defer></script><script src="/decor.js?v=2" defer></script><script src="/form-decor.js?v=1" defer></script><script src="/studio-v2.js?v=3" defer></script><script type="module" src="https://cdn.jsdelivr.net/npm/@lottiefiles/dotlottie-wc@latest/dist/dotlottie-wc.js"></script>
+<script src="/admin-panel.js?v=2" defer></script><script src="/atmosphere.js?v=3" defer></script><script src="/scene-art.js?v=3" defer></script><script src="/app.js?v=11" defer></script><script src="/game.js?v=5" defer></script><script src="/decor.js?v=3" defer></script><script src="/form-decor.js?v=1" defer></script><script src="/studio-v2.js?v=3" defer></script><script type="module" src="https://cdn.jsdelivr.net/npm/@lottiefiles/dotlottie-wc@latest/dist/dotlottie-wc.js"></script>
 </body></html>

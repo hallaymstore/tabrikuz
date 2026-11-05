@@ -171,3 +171,104 @@ for side, f in ((-1, False), (1, True)):
     c.put(tf(bells, .8, 0, flip=not f), 650 + side * 372, 150)
 c.put(tf(rose_head, .78), 650, 132)
 c.save('divider-floral-04')
+
+
+# ---- Pillars: ivory marble with gilded trim, built as capital / seamless
+# shaft tile / base so a column can stand as tall as any section.
+from PIL import ImageDraw
+
+SS = 3  # supersampling
+
+
+def marble(width, height, radius_frac=1.0, flutes=0):
+    """Shade a vertical cylinder lit from the upper left."""
+    w, h = width * SS, height * SS
+    x = (np.arange(w) + .5) / w * 2 - 1
+    nx = np.clip(x / radius_frac, -1, 1)
+    nz = np.sqrt(np.clip(1 - nx ** 2, 0, 1))
+    light = np.clip(-.55 * nx + .83 * nz, 0, 1)
+    shade = .62 + .38 * light + .25 * light ** 24
+    if flutes:
+        groove = (np.cos(np.pi * 2 * flutes * (x + 1) / 2) + 1) / 2
+        shade = shade * (1 - .16 * groove ** 3 * nz)
+    ivory = np.array([248, 238, 230]) / 255
+    blush = np.array([214, 186, 196]) / 255
+    rgb = (blush + (ivory - blush) * np.clip(shade, 0, 1.2)[:, None]).clip(0, 1)
+    img = np.repeat((rgb * 255)[None, :, :], h, axis=0)
+    a = np.where(np.abs(x) <= radius_frac, 255, 0)
+    img = np.dstack([img, np.repeat(a[None, :], h, axis=0)]).astype(np.uint8)
+    return Image.fromarray(img, 'RGBA')
+
+
+def gold_band(draw, box, steps=6):
+    x0, y0, x1, y1 = box
+    for i in range(steps):
+        t = i / (steps - 1)
+        c = tuple(int(a + (b - a) * t) for a, b in zip((255, 236, 170), (176, 124, 52)))
+        yy0 = y0 + (y1 - y0) * i / steps
+        draw.rectangle((x0, yy0, x1, y0 + (y1 - y0) * (i + 1) / steps), fill=c + (255,))
+
+
+def spiral(draw, cx, cy, r, turns, width, color):
+    pts = []
+    for i in range(int(turns * 90)):
+        t = i / 90
+        rr = r * (1 - t / (turns + .25))
+        ang = t * 2 * np.pi
+        pts.append((cx + rr * np.cos(ang), cy + rr * np.sin(ang)))
+    draw.line(pts, fill=color, width=width, joint='curve')
+
+
+def save_ss(im, name):
+    im = im.resize((im.width // SS, im.height // SS), Image.LANCZOS)
+    im.save(OUT / f'{name}.webp', 'WEBP', quality=90, method=6)
+    print(f'{name}.webp', im.size)
+
+
+# Shaft tile: 140 wide, tiles seamlessly in y.
+save_ss(marble(140, 240, .86, flutes=7), 'pillar-shaft')
+
+# Capital (Ionic): echinus, abacus, gilded volutes.
+cap = Image.new('RGBA', (200 * SS, 120 * SS), (0, 0, 0, 0))
+cap.alpha_composite(marble(200, 26, 1.0).resize((200 * SS, 26 * SS)), (0, 0))
+cap.alpha_composite(marble(170, 40, .96).resize((170 * SS, 40 * SS)), (15 * SS, 26 * SS))
+cap.alpha_composite(marble(150, 54, .86, flutes=7).resize((150 * SS, 54 * SS)), (25 * SS, 66 * SS))
+d = ImageDraw.Draw(cap)
+gold_band(d, (6 * SS, 22 * SS, 194 * SS, 30 * SS))
+gold_band(d, (30 * SS, 62 * SS, 170 * SS, 69 * SS))
+for cx in (30, 170):
+    d.ellipse(((cx - 26) * SS, 20 * SS, (cx + 26) * SS, 72 * SS), fill=(247, 236, 228, 255))
+    spiral(d, cx * SS, 46 * SS, 24 * SS, 2.4, 5 * SS, (150, 104, 40, 255))
+    spiral(d, cx * SS - SS, 45 * SS, 24 * SS, 2.4, 3 * SS, (255, 226, 150, 255))
+for i in range(7):  # egg-and-dart beads
+    x = (58 + i * 14) * SS
+    d.ellipse((x - 5 * SS, 38 * SS, x + 5 * SS, 52 * SS), fill=(232, 214, 210, 255), outline=(190, 150, 120, 255), width=SS)
+save_ss(cap, 'pillar-capital')
+
+# Base (Attic): two tori around a scotia, on a plinth.
+base_im = Image.new('RGBA', (200 * SS, 100 * SS), (0, 0, 0, 0))
+base_im.alpha_composite(marble(150, 10, .86).resize((150 * SS, 10 * SS)), (25 * SS, 0))
+base_im.alpha_composite(marble(166, 20, .95).resize((166 * SS, 20 * SS)), (17 * SS, 10 * SS))
+base_im.alpha_composite(marble(150, 14, .9).resize((150 * SS, 14 * SS)), (25 * SS, 30 * SS))
+base_im.alpha_composite(marble(184, 24, .98).resize((184 * SS, 24 * SS)), (8 * SS, 44 * SS))
+base_im.alpha_composite(marble(200, 32, 1.0).resize((200 * SS, 32 * SS)), (0, 68 * SS))
+d = ImageDraw.Draw(base_im)
+gold_band(d, (10 * SS, 64 * SS, 190 * SS, 70 * SS))
+save_ss(base_im, 'pillar-base')
+
+# Vines that wind around a pillar: sprigs crossing the shaft in a zig-zag.
+def wrap(name, pieces):
+    c = Canvas(240, 760)
+    y, i = 40, 0
+    while y < 660:
+        art, scale, dx = pieces[i % len(pieces)]
+        side = 1 if i % 2 else -1
+        piece = tf(art, scale, 90 + side * 52, flip=i % 2 == 0)
+        c.put(piece, 120 + side * dx, y + piece.height / 2 - 20)
+        y += piece.height * .55
+        i += 1
+    c.save(name)
+
+wrap('wrap-vine-01', [(sprig, .62, 18), (white_sprig, .7, 22), (pink_sprig, .66, 16)])
+wrap('wrap-vine-02', [(pink_sprig, .7, 16), (sprig, .6, 20), (bell_tip, .62, 26), (white_sprig, .66, 18)])
+wrap('wrap-vine-03', [(white_sprig, .7, 20), (jasmine, .5, 24), (sprig, .6, 16), (bells, .42, 22)])
