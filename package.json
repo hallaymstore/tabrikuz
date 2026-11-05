@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "check": "node --check server.js"
+    "check": "node --check server.js && node --check public/app.js && node --check public/game.js && node --check public/admin-panel.js",
+    "test": "npm run check && node --test tests/smoke.test.mjs"
   },
   "engines": {
     "node": ">=20"
