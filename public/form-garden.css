@@ -35,3 +35,4 @@ html[data-ambient-motion=paused] .field-ornaments:after,html[data-ambient-motion
 @media(prefers-reduced-motion:reduce){.field-ornaments:after,.service-input-art:after,.decorated-form-panel .form-flower{animation:none!important}}
 /* The palace illustration already contains the moon; retain just that one. */
 html[data-theme=night] .night-moon .moon-face{display:none!important}
+@supports (appearance:base-select){body[data-surface=studio] .field .field-control>select,.service-form .service-input-wrap>select{display:flex!important;align-items:center;gap:8px;min-height:48px}.field-control>select::picker-icon,.service-input-wrap>select::picker-icon{margin-left:auto;color:#76517e}}
