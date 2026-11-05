@@ -36,13 +36,13 @@ test('TabrikUZ API and frontend smoke test',async()=>{
  assert.equal(reg.body.user.plan,'free');
  const token=reg.body.token;
  let forbidden=await call('/api/admin/users','GET',null,token);assert.equal(forbidden.status,403);
- const premium=await call('/api/invites','POST',{type:'birthday',templateId:'gold',recipient:'Pro'},token);assert.equal(premium.status,403);
- const invite=await call('/api/invites','POST',{type:'birthday',templateId:'rose',recipient:'Birthday Guest',sender:'Friend',message:'Have a wonderful birthday!',sceneEffect:'petals',introEnabled:false},token);
+ const premium=await call('/api/invites','POST',{type:'birthday',templateId:'gold',recipient:'Pro'},token);assert.equal(premium.status,201);assert.equal(premium.body.requiresPayment,true);const locked=await call('/api/invites/'+premium.body.slug);assert.equal(locked.status,404);
+ const invite=await call('/api/invites','POST',{type:'birthday',templateId:'sketch-birthday',recipient:'Birthday Guest',sender:'Friend',message:'Have a wonderful birthday!',sceneEffect:'petals',introEnabled:false},token);
  assert.equal(invite.status,201);assert.ok(invite.body.slug);
  const slug=encodeURIComponent(invite.body.slug);
  const publicInvite=await call('/api/invites/'+slug);assert.equal(publicInvite.status,200);assert.equal(publicInvite.body.introEnabled,false);assert.equal(publicInvite.body.sceneEffect,'petals');
  const wish=await call('/api/invites/'+slug+'/wishes','POST',{name:'Guest',message:'Best wishes!'});assert.equal(wish.status,201);
  const rsvp=await call('/api/invites/'+slug+'/rsvp','POST',{name:'Guest',attending:true});assert.equal(rsvp.status,201);
- const mine=await call('/api/invites/mine','GET',null,token);assert.equal(mine.status,200);assert.equal(mine.body.length,1);
+ const mine=await call('/api/invites/mine','GET',null,token);assert.equal(mine.status,200);assert.equal(mine.body.length,2);
  }finally{child.kill('SIGTERM');}
 });

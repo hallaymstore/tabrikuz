@@ -2,9 +2,9 @@
 (()=>{'use strict';
 const config={
  rose:{kind:'birthday',image:'birthday-clean',poster:'birthday-palace',variant:'rose'},
- lilac:{kind:'sky',src:'/assets/backgrounds/day-palace.webp',variant:'lilac'},
- gold:{kind:'surprise',src:'/assets/backgrounds/celebration-palace.webp',variant:'gold'},
- peach:{kind:'candy',src:'/assets/backgrounds/day-studio.webp',variant:'peach'},
+ lilac:{kind:'sky',image:'royal-day',poster:'royal-day',variant:'lilac'},
+ gold:{kind:'celebration',image:'royal-day',poster:'royal-day',variant:'gold'},
+ peach:{kind:'celebration',image:'royal-day',poster:'royal-day',variant:'peach'},
  midnight:{kind:'midnight',image:'midnight-palace',poster:'midnight-palace',variant:'midnight'},
  ivory:{kind:'wedding',image:'wedding-clean',poster:'wedding-palace',variant:'ivory'},
  champagne:{kind:'wedding',image:'wedding-clean',poster:'wedding-palace',variant:'champagne'},
@@ -14,6 +14,7 @@ const config={
  noir:{kind:'gala',image:'gala-ballroom',poster:'gala-ballroom',variant:'gala'},
  blue:{kind:'celebration',image:'aqua-celebration',poster:'aqua-celebration',variant:'celebration'}
 };
+Object.assign(config,{'royal-day':{kind:'celebration',image:'royal-day',poster:'royal-day',variant:'royal'},'moon-garden':{kind:'moongarden',image:'moon-garden',poster:'moon-garden',variant:'moon'},'moon-love':{kind:'moongarden',image:'moon-garden',poster:'moon-garden',variant:'moon'},'royal-wedding':{kind:'wedding',image:'wedding-clean',poster:'wedding-palace',variant:'ivory'}});
 // Extra animated layers that give each world its own story.
 const I=(n,c)=>window.TabrikIcons?TabrikIcons.svg(n,c):'';
 const many=(n,f)=>Array.from({length:n},(_,i)=>f(i)).join('');
@@ -36,6 +37,7 @@ const worlds={
   '<span class="w-sweet s1">'+I('cupcake')+'</span><span class="w-sweet s2">'+I('lollipop')+'</span><span class="w-sweet s3">'+I('cupcake')+'</span><span class="w-sweet s4">'+I('lollipop')+'</span><span class="w-sweet s5">'+I('candy')+'</span>'+
   many(9,i=>'<span class="w-fall" style="--x:'+((i*37+5)%94)+'%;--d:-'+(i*.9)+'s;--t:'+(4+i%4)+'s;--r:'+(i%2?1:-1)*(180+i*40)+'deg">'+I(['candy','lollipop','cupcake'][i%3])+'</span>')+'</div>'
 };
+worlds.moongarden=()=>'<div class="moon-garden-life" aria-hidden="true">'+many(7,i=>'<img class="garden-firefly" src="/assets/ornaments/firefly-premium.webp" alt="" style="--x:'+(8+i*13)+'%;--y:'+(28+i%3*17)+'%;--d:-'+i+'s">')+many(2,i=>'<img class="garden-cloud" src="/assets/backgrounds/day-cloud.webp" alt="" style="--y:'+(15+i*28)+'%;--d:-'+i*10+'s">')+'</div>';
 const flames={birthday:[[43.3,40.5,3.9],[50.4,38.4,4.6],[57.3,40.6,3.9]],midnight:[[40,39.5,3.9],[50,38.2,4.5],[60,39.5,3.9]]};
 function layers(t,live){const c=config[t.id];if(!c)return null;const alt={sky:'Bulutlar va sharlar orasida uchayotgan bayram',surprise:'Oltin nurlar ichida ochilayotgan sirli sovg‘a',candy:'Kekslar, konfetlar va lolipoplar bilan shirin olam',love:'Atirgullar orasidagi samimiy maktub',achievement:'Bitiruv qalpog‘i va diplom bilan yutuqlar bog‘i',gala:'Yorqin chiroqli oltin gala sahnasi',celebration:'Moviy bog‘dagi sovg‘alar bilan bayram'}[c.kind]||(c.kind==='wedding'||c.kind==='garden'?'Gullar va uzuklar bilan bezatilgan to‘y sahnasi':'Tort va sovg‘alar bilan bezatilgan tug‘ilgan kun sahnasi');
  const bg=c.src||'/assets/scenes/'+c.image+'.webp';

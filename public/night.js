@@ -5,7 +5,7 @@
    and it stops whenever it is day, the tab is hidden or motion is reduced. */
 (()=>{'use strict';
 const root=document.documentElement,KEY='tabrikuz-theme';
-const reduced={matches:false,addEventListener(){}};
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const coarse=matchMedia('(pointer: coarse)').matches,lite=root.classList.contains('lite');
 let theme='day';try{theme=localStorage.getItem(KEY)==='night'?'night':'day'}catch{}
 
@@ -31,7 +31,7 @@ const veil=document.createElement('canvas');veil.className='night-veil';veil.set
 const ctx=veil.getContext('2d');
 const flyCount=lite?4:coarse?5:9;
 const flies=Array.from({length:flyCount},(_,i)=>{
- const el=document.createElement('img');el.className='firefly';el.src='/assets/ornaments/firefly.webp';el.alt='';el.decoding='async';
+ const el=document.createElement('img');el.className='firefly';el.src='/assets/ornaments/firefly-premium.webp';el.alt='';el.decoding='async';
  return {el,x:Math.random()*innerWidth,y:120+Math.random()*(innerHeight-160),a:Math.random()*6.28,s:.35+Math.random()*.55,
   r:(coarse?36:46)+Math.random()*(coarse?20:28),ph:Math.random()*6.28,f:1.2+Math.random()*1.6};
 });
@@ -67,13 +67,13 @@ function light(x,y,r,warm,strength=1){
 let warmth=[];
 function frame(t){
  raf=0;
- if(root.dataset.theme!=='night'||document.hidden)return;
+ if(root.dataset.theme!=='night'||document.hidden||root.dataset.ambientMotion==='paused'||document.body.dataset.surface==='invite')return;
  // Low-power devices redraw the veil at half rate; motion stays smooth enough.
  if(lite&&(skip^=1)){raf=requestAnimationFrame(frame);return}
  const now=t/1000,dt=Math.min(.05,(t-last)/1000||.016);last=t;
  const w=innerWidth,h=innerHeight;
  ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,veil.width,veil.height);
- ctx.fillStyle='rgba(5,12,40,0.8)';ctx.fillRect(0,0,veil.width,veil.height);
+ ctx.fillStyle='rgba(5,12,40,0.18)';ctx.fillRect(0,0,veil.width,veil.height);
  ctx.globalCompositeOperation='destination-out';warmth=[];
  // Lanterns: the light sits on the glass, wherever the swing has carried it.
  for(const l of lanterns){const r=l.querySelector('img').getBoundingClientRect();if(r.width)light(r.left+r.width/2,r.top+r.height*.55,Math.max(250,Math.min(w,h)*.48),'255,196,110',1)}
@@ -119,5 +119,6 @@ toggle.addEventListener('click',()=>{root.classList.add('theme-switching');apply
 // The hero is re-rendered on navigation; put the sky back when it returns.
 const app=document.getElementById('app');
 if(app)new MutationObserver(()=>{if(root.dataset.theme==='night')sky()}).observe(app,{childList:true});
+new MutationObserver(start).observe(root,{attributes:true,attributeFilter:['data-ambient-motion']});
 apply(theme,false);
 })();
