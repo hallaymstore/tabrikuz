@@ -1,0 +1,35 @@
+/* Open-edged illustrated captions: all decoration stays behind readable text. */
+.world-card{--dream:#d8a8ca;--dream-soft:#f2d6e8;--dream-ink:#744e79;--dream-gold:#b68b50}
+.landing-experience .template-grid .world-card{background:transparent!important;border:0!important;box-shadow:none!important;overflow:visible!important;border-radius:0!important;isolation:isolate}
+.landing-experience .template-grid .world-card:hover{box-shadow:none!important;transform:translateY(-4px)}
+.landing-experience .template-grid .world-card>.world-art{border-radius:24px 24px 36% 12% / 24px 24px 22px 18px!important;box-shadow:0 12px 25px #845f7615;z-index:2}
+.landing-experience .template-grid .world-card .template-info{position:relative;isolation:isolate;background:transparent!important;padding:30px 23px 27px!important;margin-top:-7px;overflow:visible}
+.card-dreamscape{position:absolute;inset:-24px -10px -6px;z-index:-1;pointer-events:none;overflow:hidden;mask-image:radial-gradient(ellipse at 50% 42%,#000 38%,#000c 62%,transparent 77%);border-radius:45% 31% 43% 38% / 20% 32% 36% 28%;background:radial-gradient(ellipse at 22% 30%,#fffdf6f5 0 18%,transparent 66%),radial-gradient(ellipse at 76% 65%,var(--dream-soft),transparent 69%),radial-gradient(ellipse,#fffaf1e6 38%,transparent 75%)}
+.card-wisp{position:absolute;width:75%;height:125px;left:-7%;bottom:-40px;background:radial-gradient(ellipse,var(--dream),transparent 70%);opacity:.5;border-radius:54% 46% 72% 28%;animation:card-wisp-float 14s ease-in-out infinite alternate}
+.card-wisp.wisp-two{left:auto;right:-14%;top:-15px;bottom:auto;width:63%;height:150px;opacity:.34;animation-delay:-7s;animation-direction:alternate-reverse}
+.card-trail{position:absolute;right:-30px;top:7px;width:145px;height:165px;border:1px solid var(--dream);opacity:.3;border-radius:49% 51% 67% 33%;transform:rotate(30deg);animation:card-trail-turn 26s linear infinite}
+.card-trail:after{content:'';position:absolute;inset:11px;border:1px solid var(--dream-gold);border-radius:inherit}
+.card-petal{position:absolute;right:14%;top:40%;width:9px;height:14px;background:var(--dream);border-radius:85% 15% 80% 20%;opacity:.5;animation:card-petal-drift 9s ease-in-out infinite alternate}
+.petal-two{right:7%;top:68%;width:6px;height:10px;animation-delay:-4s}.petal-three{right:auto;left:8%;top:75%;width:7px;height:11px;animation-delay:-6s}
+.card-dust{position:absolute;right:21%;top:21%;font:23px Georgia,serif;color:var(--dream-gold);opacity:.55;animation:card-dust-glow 5s ease-in-out infinite alternate}.dust-two{right:5%;top:53%;font-size:10px;animation-delay:-2s}
+.landing-experience .template-grid .world-card h4{font:500 clamp(24px,2.1vw,30px)/1.17 'Playfair Display',serif!important;letter-spacing:-.6px;color:var(--dream-ink)!important;margin:8px 0 10px;max-width:91%;text-wrap:balance;text-shadow:0 1px 12px #fff9}
+.landing-experience .template-grid .world-card .world-category{color:var(--dream-ink);opacity:.78;font-size:9px;letter-spacing:1.3px}
+.landing-experience .template-grid .world-card .template-info>p{font-size:12px;line-height:1.65;color:var(--dream-ink);opacity:.78;max-width:85%;min-height:40px;margin-bottom:8px}
+.landing-experience .template-grid .world-card .bottom{border:0!important;padding-top:8px;margin-top:6px;position:relative;gap:10px}
+.landing-experience .template-grid .world-card .pill{background:#fff9!important;color:var(--dream-ink)!important;border:0;backdrop-filter:blur(6px);border-radius:100px;padding:7px 10px}
+.landing-experience .template-grid .world-card .pill.gold{color:#956b36!important;background:#fff6dfaa!important}
+.landing-experience .template-grid .world-card [data-demo]{color:var(--dream-ink);font-size:11px}
+.landing-experience .template-grid .world-card [data-template]{background:var(--dream-ink)!important;color:#fffaf2!important;border-radius:18px 11px 19px 12px;padding:10px 15px;box-shadow:0 4px 13px #68496a15}
+.world-card[data-card-tone=midnight],.world-card[data-card-tone=noir]{--dream:#b3abd9;--dream-soft:#e1dbee;--dream-ink:#5b527f;--dream-gold:#b78c4d}
+.world-card[data-card-tone=ivory],.world-card[data-card-tone=champagne],.world-card[data-card-tone=gold]{--dream:#e7c089;--dream-soft:#f4e4c8;--dream-ink:#896343;--dream-gold:#b1874b}
+.world-card[data-card-tone=garden]{--dream:#a5c3a3;--dream-soft:#e0ebd7;--dream-ink:#506f57;--dream-gold:#b89657}
+.world-card[data-card-tone=blue],.world-card[data-card-tone=ocean]{--dream:#91cad4;--dream-soft:#d6edf0;--dream-ink:#427782;--dream-gold:#b49b61}
+.world-card[data-card-tone=velvet],.world-card[data-card-tone=peach]{--dream:#e4a9b9;--dream-soft:#f6dce0;--dream-ink:#a05e78;--dream-gold:#c29967}
+.world-card[data-card-tone=lilac]{--dream:#c3adde;--dream-soft:#e7dcf3;--dream-ink:#806196}
+.world-card[data-card-kind=wedding] .card-petal{border-radius:50% 5% 60% 20%;background:linear-gradient(40deg,var(--dream),#fff5);width:11px;height:15px}
+.world-card[data-card-kind=event] .card-petal{width:4px;height:13px;border-radius:2px;rotate:-25deg}
+.world-card[data-card-kind=love] .card-petal{width:9px;height:9px;border-radius:2px;rotate:45deg}.world-card[data-card-kind=love] .card-petal:before,.world-card[data-card-kind=love] .card-petal:after{content:'';position:absolute;width:9px;height:9px;background:inherit;border-radius:50%;top:-5px}.world-card[data-card-kind=love] .card-petal:after{top:0;left:-5px}
+@keyframes card-wisp-float{to{transform:translate(16px,-15px) rotate(12deg) scale(1.12)}}@keyframes card-trail-turn{to{transform:rotate(390deg)}}@keyframes card-petal-drift{to{transform:translate(-14px,-18px) rotate(50deg);opacity:.16}}@keyframes card-dust-glow{to{opacity:.12;transform:rotate(20deg) scale(.65)}}
+html[data-ambient-motion=paused] .card-dreamscape *,.atmosphere-hidden .card-dreamscape *,.card-caption-offscreen .card-dreamscape *{animation-play-state:paused!important}
+@media(max-width:600px){.landing-experience .template-grid .world-card .template-info{padding:27px 20px 24px!important}.landing-experience .template-grid .world-card h4{font-size:28px!important}.card-dreamscape{inset:-22px -4px 0}.template-grid{row-gap:30px!important}}
+@media(prefers-reduced-motion:reduce){.card-dreamscape *{animation:none!important}.landing-experience .template-grid .world-card{transition:none;transform:none!important}}
