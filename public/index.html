@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fcf9f5"><meta name="description" content="TabrikUZ — eng go‘zal lahzalar uchun interaktiv taklifnoma va tabriklar. Tug‘ilgan kun, to‘y, sevgi maktubi va tadbirlar uchun premium dizaynlar.">
+<title>TabrikUZ — Lahzalarni unutilmas qiling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div id="toast" role="status"></div>
+<header class="site-header"><div class="shell header-inner">
+<a href="/" class="brand" id="brand"><span class="brand-mark">✳</span><span>tabrik<span class="brand-accent">uz</span><small>by HALLAYM</small></span></a>
+<nav class="main-nav"><a href="#collections" data-nav="collections">Shablonlar</a><a href="#how" data-nav="how">Qanday ishlaydi?</a><a href="#pricing" data-nav="pricing">Narxlar</a></nav>
+<div class="header-actions"><button id="accountBtn" class="btn btn-ghost">Kirish</button><button id="headerCreate" class="btn btn-dark">Taklifnoma yaratish <span>↗</span></button></div>
+</div></header>
+<main id="app"></main>
+<footer class="footer"><div class="shell footer-inner"><div><a href="/" class="brand"><span class="brand-mark">✳</span><span>tabrik<span class="brand-accent">uz</span></span></a><p>Har bir lahza go‘zal xotiraga aylansin.</p></div><div class="footer-links"><a href="#collections">Shablonlar</a><a href="#how">Jarayon</a><a href="#pricing">Tariflar</a><span>© 2026 TabrikUZ · HALLAYM</span></div></div></footer>
+<div id="authModal" class="overlay hidden"><div class="modal auth-modal"><button class="modal-close" aria-label="Yopish" id="authClose">×</button><div class="auth-art">✳ <span>Bir lahzadan abadiy xotiragacha.</span></div><div class="auth-content"><div class="eyebrow">TABRIKUZ ACCOUNT</div><h2 id="authHeading">Xush kelibsiz</h2><p id="authDescription">Shaxsiy taklifnomalaringizni boshqaring.</p><form id="authForm"><div id="nameField" class="hidden"><label>Ismingiz</label><input name="name" placeholder="Ismingiz" autocomplete="name"></div><label>Email manzilingiz</label><input type="email" name="email" placeholder="name@example.com" required autocomplete="email"><label>Parol</label><input type="password" name="password" placeholder="Kamida 8 ta belgi" required minlength="8" autocomplete="current-password"><button class="btn btn-dark btn-wide" type="submit" id="authSubmit">Kirish</button></form><button id="toggleAuth" class="link-button">Akkauntingiz yo‘qmi? Ro‘yxatdan o‘tish</button></div></div></div>
+<script src="/app.js" defer></script>
+</body></html>
