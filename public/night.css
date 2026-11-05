@@ -76,3 +76,12 @@ html[data-theme=night] .celebration-copy h1{color:#f8eed8!important;text-shadow:
 html[data-theme=night] .celebration-copy h1 em{background:linear-gradient(110deg,#ffe29a,#f3c6e4 70%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important}
 html[data-theme=night] .celebration-copy p,html[data-theme=night] .celebration-perks span,html[data-theme=night] .explore-link{color:#dcd6f4!important}
 html[data-theme=night] .hero-badge{background:#0f1d52cc!important;color:#f1d9a0!important;border-color:#c9a45a88!important}
+
+/* Header fits on phones: the create button shortens to "Yaratish". */
+.hc-short{display:none}
+@media (max-width:600px){
+ .hc-long{display:none}.hc-short{display:inline}
+ .site-header .header-actions{gap:6px!important}
+ .site-header .header-actions .btn{padding-inline:12px!important;font-size:12px}
+}
+@media (max-width:380px){.site-header .brand-logo{height:34px}.site-header .header-actions .btn{padding-inline:9px!important;font-size:11.5px}.site-header .theme-toggle{padding:0 4px}.site-header .header-inner{padding-inline:12px}}

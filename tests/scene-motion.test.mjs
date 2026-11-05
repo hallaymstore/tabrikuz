@@ -26,8 +26,8 @@ test('Pause and candle controls change only their own scene',()=>{
  listeners.click(event('[data-candle-toggle]'));assert.equal(art.classList.contains('candles-out'),true);assert.match(status.textContent,/o‘chirildi/);
  listeners.click(event('[data-candle-toggle]'));assert.equal(art.classList.contains('candles-out'),false);assert.match(status.textContent,/yondi/);
 });
-test('Reduced motion, offscreen pause and observer cleanup work after redraw',()=>{
- const env=boot(true),art=fakeArt();env.nodes.push(art);env.mutate();assert.equal(art.dataset.motion,'paused');assert.ok(env.observed.has(art));
+test('Scenes keep moving under system reduce-motion; offscreen pause and observer cleanup work after redraw',()=>{
+ const env=boot(true),art=fakeArt();env.nodes.push(art);env.mutate();assert.equal(art.dataset.motion,'running');assert.ok(env.observed.has(art));
  env.intersect([{target:art,isIntersecting:false}]);assert.ok(art.classList.contains('motion-offscreen'));
  env.intersect([{target:art,isIntersecting:true}]);assert.equal(art.classList.contains('motion-offscreen'),false);
  art.isConnected=false;env.nodes.length=0;env.mutate();assert.deepEqual(env.unobserved,[art]);

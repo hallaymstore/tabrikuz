@@ -12,6 +12,7 @@ test('Atmosphere pause persists and restores without affecting greeting scenes',
  const env=boot();assert.equal(env.root.dataset.ambientMotion,'running');env.events.click();assert.equal(env.root.dataset.ambientMotion,'paused');assert.equal(env.attrs['aria-pressed'],'false');assert.equal(env.saved(),'paused');assert.equal(env.span.textContent,'Sokin fon');
  const restored=boot({saved:env.saved()});assert.equal(restored.root.dataset.ambientMotion,'paused');restored.events.click();assert.equal(restored.root.dataset.ambientMotion,'running');
 });
-test('Reduced motion overrides saved autoplay and disables the atmosphere button',()=>{
- const env=boot({saved:'running',reduced:true});assert.equal(env.root.dataset.ambientMotion,'paused');assert.equal(env.button.disabled,true);assert.equal(env.attrs['aria-pressed'],'false');
+test('The site toggle, not the system reduce-motion setting, controls motion',()=>{
+ const env=boot({saved:'running',reduced:true});assert.equal(env.root.dataset.ambientMotion,'running');assert.equal(env.button.disabled,false);assert.equal(env.attrs['aria-pressed'],'true');
+ env.events.click();assert.equal(env.root.dataset.ambientMotion,'paused');assert.equal(env.saved(),'paused');
 });
