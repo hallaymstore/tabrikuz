@@ -1,0 +1,7 @@
+/* Pause work outside the viewport without changing the composition. */
+.perf-offscreen *,.perf-offscreen:before,.perf-offscreen:after,.perf-offscreen *:before,.perf-offscreen *:after,.perf-hidden *,.perf-hidden *:before,.perf-hidden *:after{animation-play-state:paused!important}
+@supports(content-visibility:auto){.template-card{content-visibility:auto;contain-intrinsic-size:auto 650px}}
+/* Small devices retain the same images and color, without expensive backdrop sampling. */
+html.lite .site-header,html.lite .preview-frame,html.lite .service-sidebar>div,html.lite .template-info,html.lite .theme-toggle{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+html.lite .atmosphere-orbit{animation:none!important}
+html.lite .atmosphere-sparks i:nth-child(n+7),html.lite .day-petals i:nth-child(n+6){display:none}

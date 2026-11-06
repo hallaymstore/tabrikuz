@@ -54,7 +54,7 @@ addEventListener('pointermove',e=>{pointer.x=e.clientX;pointer.y=e.clientY;point
 addEventListener('pointerdown',e=>{pointer.x=e.clientX;pointer.y=e.clientY;pointer.on=1},{passive:true});
 document.addEventListener('pointerleave',()=>pointer.on=0);
 
-let scale=lite?.25:coarse?.34:.5,raf=0,last=0,skip=0;
+let scale=lite?.2:coarse?.3:.5,raf=0,last=0,lastPaint=0;
 function resize(){veil.width=Math.ceil(innerWidth*scale);veil.height=Math.ceil(innerHeight*scale)}
 addEventListener('resize',resize,{passive:true});
 
@@ -70,7 +70,7 @@ function frame(t){
  if(root.dataset.theme!=='night'||document.hidden||document.body.dataset.surface==='invite')return;
  const paused=reduced.matches||root.dataset.ambientMotion==='paused';
  // Low-power devices redraw the veil at half rate; motion stays smooth enough.
- if(lite&&(skip^=1)){raf=requestAnimationFrame(frame);return}
+ if(!paused&&t-lastPaint<(lite?50:33)){raf=requestAnimationFrame(frame);return}lastPaint=t;
  const now=t/1000,dt=Math.min(.05,(t-last)/1000||.016);last=t;
  const w=innerWidth,h=innerHeight;
  ctx.globalCompositeOperation='source-over';ctx.clearRect(0,0,veil.width,veil.height);
